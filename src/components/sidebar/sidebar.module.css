@@ -1,0 +1,29 @@
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 32%;
+  height: 120px;
+  justify-content: space-evenly;
+}
+
+.fb,
+.google {
+  background-size: 40px 40px;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+.fb {
+  background-size: 42px 42px;
+  background-image: url('https://cdn.icon-icons.com/icons2/2429/PNG/128/facebook_logo_icon_147291.png');
+}
+
+.google {
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/2048px-Google_Chrome_icon_%28September_2014%29.svg.png');
+}

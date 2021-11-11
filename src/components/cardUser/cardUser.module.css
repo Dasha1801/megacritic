@@ -1,0 +1,43 @@
+.card {
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  padding-top: 2%;
+  margin: 2% 2% 2% 0;
+  width: 16rem;
+}
+
+.photo {
+  width: 50%;
+  border-radius: 50%;
+}
+
+.name,
+.logOut {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 735px) {
+  .name,
+  .logOut {
+    font-size: 0.8rem;
+  }
+
+  .logOut {
+    padding: 2% 8%;
+  }
+
+  .card {
+    width: 13rem;
+  }
+}
+
+@media (max-width: 470px) {
+  .name,
+  .logOut {
+    font-size: 0.6rem;
+  }
+  .card {
+    width: 10rem;
+  }
+}
