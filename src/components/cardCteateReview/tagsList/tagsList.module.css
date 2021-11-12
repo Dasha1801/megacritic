@@ -1,0 +1,15 @@
+.wrapperTags {
+  margin: 1% 0 0.5%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: gray;
+  color: white;
+  border-radius: 20%;
+  padding: 4px;
+  line-height: 12px;
+  font-size: 12px;
+  margin: 0.5% 0.5% 0.5% 0;
+}

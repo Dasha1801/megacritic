@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './lang.module.css';
-import { setLang } from '../../redux/action';
+import { setLang } from '../../../redux/action';
 
 const Lang = () => {
   const langParams = useSelector(({ isLangEn }) => isLangEn);

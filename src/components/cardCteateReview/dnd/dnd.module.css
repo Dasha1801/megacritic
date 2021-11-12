@@ -1,0 +1,37 @@
+.wrapperDnd {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropZone {
+  height: 5rem;
+  width: 7rem;
+  border: 2px dashed gray;
+  cursor: pointer;
+  text-align: center;
+  line-height: 5rem;
+  margin-right: 2%;
+}
+
+.active {
+  border: 2px solid #0d6efd;
+}
+
+.imgList {
+  list-style-type: none;
+  display: flex;
+  align-items: flex-end;
+  margin: 2% 0 0;
+  padding: 0;
+}
+
+.image {
+  margin-right: 2%;
+}
+
+
+@media (max-width: 440px) {
+  .wrapperDnd {
+    align-items: center;
+  }
+}

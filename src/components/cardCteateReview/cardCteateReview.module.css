@@ -1,25 +1,35 @@
-.review {
+.cardReview {
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   padding: 1%;
+  margin-top: 1%;
 }
 
 .headerReview {
   display: flex;
   margin-bottom: 1%;
+  justify-content: space-between;
 }
 
-.text {
+.dnd {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  padding: 1% 0 0;
+  justify-content: space-between;
   align-items: flex-end;
+  flex-wrap: wrap;
 }
 
 .submit {
   width: 13%;
-  margin-top: 1%;
   padding: 1%;
+  line-height: 20px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
 }
 
 @media (max-width: 1050px) {
@@ -42,16 +52,21 @@
 
 @media (max-width: 600px) {
   .submit {
-    width: 35%;
+    width: 30%;
   }
   .headerReview {
     flex-direction: column;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 440px) {
+  .dnd {
+    flex-direction: column;
+    align-items: center;
+  }
   .submit {
-    width: 45%;
+    width: 35%;
+    margin-top: 2%;
   }
 }
 

@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import styles from './header.module.css';
-import Lang from '../lang/lang';
+import Lang from './lang/lang';
 import { useSelector } from 'react-redux';
 
 const Header = () => {
@@ -27,11 +27,7 @@ const Header = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <NavLink
-              to="/"
-              className={styles.link}
-              activeClassName="active"
-            >
+            <NavLink to="/" className={styles.link} activeClassName="active">
               {langEn ? 'home' : 'главная'}
             </NavLink>
             <NavLink

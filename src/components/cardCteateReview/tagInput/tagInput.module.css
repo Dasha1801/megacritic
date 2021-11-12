@@ -1,0 +1,12 @@
+.formTag {
+  width: 49%;
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 600px) {
+  .formTag {
+    width: 100%;
+    margin-top: 1%;
+  }
+}
