@@ -6,7 +6,7 @@
   margin-top: 1%;
 }
 
-.headerReview {
+.headerReview, .wrapperTitleRating {
   display: flex;
   margin-bottom: 1%;
   justify-content: space-between;

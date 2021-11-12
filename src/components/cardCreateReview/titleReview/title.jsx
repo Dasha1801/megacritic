@@ -1,5 +1,6 @@
 import { Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import styles from './title.module.css';
 
 const Title = ({ setTitle, value }) => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
@@ -15,6 +16,7 @@ const Title = ({ setTitle, value }) => {
       placeholder={langEn ? 'Title' : 'Заголовок обзора'}
       onChange={getTitle}
       value={value}
+      className={styles.titleReview}
     />
   );
 };

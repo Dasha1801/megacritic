@@ -1,0 +1,9 @@
+.img {
+  width: 75px;
+  margin-right: 2%;
+}
+
+.likes {
+  display: flex;
+  justify-content: space-evenly;
+}

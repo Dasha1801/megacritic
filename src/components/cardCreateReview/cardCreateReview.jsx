@@ -1,13 +1,14 @@
 import { Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import DropZone from './dnd/dnd';
-import styles from './cardReview.module.css';
+import styles from './cardCreateReview.module.css';
 import { useState } from 'react';
 import Title from './titleReview/title';
 import Category from './category/category';
 import Review from './review/review';
 import TagInput from './tagInput/tagInput';
 import TagsList from './tagsList/tagsList';
+import Rating from './rating/rating';
 
 const CardCreateReview = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
@@ -16,8 +17,8 @@ const CardCreateReview = () => {
   const [category, setCategory] = useState('');
   const [post, setPost] = useState('');
   const [tags, setTags] = useState([]);
+  const [rating, setRating] = useState('');
   const [error, setError] = useState('');
-  console.log(tags);
 
   const sendReview = () => {
     if (post && title && category) {
@@ -26,6 +27,8 @@ const CardCreateReview = () => {
         category: category,
         post: post,
         image: image,
+        rating: rating,
+        tags: tags
       });
       reset();
     } else {
@@ -43,6 +46,8 @@ const CardCreateReview = () => {
     setCategory('');
     setPost('');
     setError('');
+    setRating('');
+    setTags([]);
   };
 
   return (
@@ -55,10 +60,17 @@ const CardCreateReview = () => {
           <Category setCategory={setCategory} value={category} />
           <TagInput setTags={setTags} />
         </Form.Group>
-        <Title setTitle={setTitle} value={title} />
+        <Form.Group
+          className={styles.wrapperTitleRating}
+          controlId="exampleForm.ControlInput1"
+        >
+          <Title setTitle={setTitle} value={title} />
+          <Rating setRating={setRating} value={rating} />
+        </Form.Group>
+
         <Review setPost={setPost} value={post} />
         {error && <span className={styles.error}>{error}</span>}
-        {tags&& <TagsList tags={tags}/>}
+        {tags && <TagsList tags={tags} />}
         <Form.Group className={styles.dnd}>
           <DropZone setImage={setImage} value={image} />
           <Button
@@ -66,7 +78,7 @@ const CardCreateReview = () => {
             className={styles.submit}
             onClick={sendReview}
           >
-            {langEn ? 'Post' : 'Подать'}
+            {langEn ? 'Post' : 'Отправить'}
           </Button>
         </Form.Group>
       </Form>
