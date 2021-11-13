@@ -18,7 +18,6 @@ const ReviewsList = () => {
       setMyPosts(res.filter((el) => el.name === user.displayName));
     });
   }, []);
- 
 
   return (
     <Table striped bordered hover className={styles.listReviews}>
@@ -30,10 +29,11 @@ const ReviewsList = () => {
         </tr>
       </thead>
       <tbody>
-        {myPosts.length?
-          myPosts.map((info) => {
-            return <ItemList info={info} />;
-          }): null}
+        {myPosts.length
+          ? myPosts.map((info) => {
+              return <ItemList info={info} key={info.id} />;
+            })
+          : null}
       </tbody>
     </Table>
   );

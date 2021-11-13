@@ -6,6 +6,7 @@ import { FaPencilAlt } from 'react-icons/fa';
 import styles from './itemList.module.css';
 import CardReview from '../../cardReview/cardReview';
 import UpdateItem from '../updateItem/updateItem';
+import { deletePost } from '../../../server/api';
 
 const ItemList = ({ info }) => {
   const { category, title, post } = info;
@@ -13,7 +14,11 @@ const ItemList = ({ info }) => {
   const [popupUpdate, setPopupUpdate] = useState(false);
   const reviewClose = () => setPopupReview(false);
   const updateClose = () => setPopupUpdate(false);
-  
+
+  const deleteItem = () => {
+    deletePost(info);
+  };
+
   return (
     <tr>
       <td>{category}</td>
@@ -21,13 +26,16 @@ const ItemList = ({ info }) => {
       <td className={styles.post}>
         <span>{post.slice(0, 55)}...</span>
         <span className={styles.icons}>
-          <FaBan color="red" className={styles.icon} />
+          <FaBan color="red" className={styles.icon} onClick={deleteItem} />
           <FaEye
             color="#0d6efd"
             className={styles.icon}
             onClick={() => setPopupReview(true)}
           />
-          <FaPencilAlt className={styles.icon}  onClick={() => setPopupUpdate(true)}/>
+          <FaPencilAlt
+            className={styles.icon}
+            onClick={() => setPopupUpdate(true)}
+          />
         </span>
       </td>
       <Modal show={popupReview} onHide={reviewClose}>
@@ -43,7 +51,7 @@ const ItemList = ({ info }) => {
 
       <Modal show={popupUpdate} onHide={updateClose}>
         <Modal.Body>
-          <UpdateItem info={info} setPopupUpdate={setPopupUpdate}/>
+          <UpdateItem info={info} setPopupUpdate={setPopupUpdate} />
         </Modal.Body>
       </Modal>
     </tr>

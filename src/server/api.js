@@ -25,3 +25,12 @@ export const updatePost = (res) =>
     .catch(function (error) {
       console.log(error);
     });
+
+export const deletePost = (res) =>
+  Axios.delete(`${baseUrl}/${res.id}`, res)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
