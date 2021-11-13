@@ -9,9 +9,13 @@ import Review from './review/review';
 import TagInput from './tagInput/tagInput';
 import TagsList from './tagsList/tagsList';
 import Rating from './rating/rating';
+import { auth } from '../../configAuth/firebaseConfig';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { sendPost } from '../../server/api';
 
 const CardCreateReview = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
+  const [user] = useAuthState(auth);
   const [image, setImage] = useState([]);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
@@ -22,13 +26,16 @@ const CardCreateReview = () => {
 
   const sendReview = () => {
     if (post && title && category) {
-      console.table({
+      sendPost({
+        name: user.displayName,
         title: title,
         category: category,
         post: post,
         image: image,
         rating: rating,
-        tags: tags
+        tags: tags,
+        thumbsUp: 0,
+        thumbsDown: 0,
       });
       reset();
     } else {

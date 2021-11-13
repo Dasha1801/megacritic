@@ -9,6 +9,8 @@ import styles from '../../cardCreateReview/cardCreateReview.module.css';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import TagsList from '../../cardCreateReview/tagsList/tagsList';
+import { updatePost } from '../../../server/api';
+
 
 const UpdateItem = ({ info, setPopupUpdate }) => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
@@ -22,7 +24,8 @@ const UpdateItem = ({ info, setPopupUpdate }) => {
 
   const sendReview = () => {
     if (post && title && category) {
-      console.table({
+      updatePost({
+        id: info.id,
         title: title,
         category: category,
         post: post,
@@ -30,6 +33,7 @@ const UpdateItem = ({ info, setPopupUpdate }) => {
         rating: rating,
         tags: tags,
       });
+
       setPopupUpdate(false);
       reset();
     } else {
