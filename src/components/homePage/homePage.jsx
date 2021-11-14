@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import { getAllPost } from '../../server/api';
 import CardReview from '../cardReview/cardReview';
 import SideBar from '../sidebar/sidebar';
-import styles from './loginPage.module.css';
 
-const LoginPage = () => {
+const HomePage = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -15,12 +14,12 @@ const LoginPage = () => {
 
 
   return (
-    <div className={styles.loginPage}>
+    <div>
       <SideBar />
       {posts.map((info) => {
-        return <CardReview info={info} key={info.title} />;
+        return <CardReview info={info} key={info.id} />;
       })}
     </div>
   );
 };
-export default LoginPage;
+export default HomePage;

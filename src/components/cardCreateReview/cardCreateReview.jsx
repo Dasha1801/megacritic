@@ -1,21 +1,20 @@
-import { Form, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import DropZone from './dnd/dnd';
-import styles from './cardCreateReview.module.css';
 import { useState } from 'react';
-import Title from './titleReview/title';
+import { Button, Form } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { sendPost } from '../../server/api';
+import styles from './cardCreateReview.module.css';
 import Category from './category/category';
+import DropZone from './dnd/dnd';
+import Rating from './rating/rating';
 import Review from './review/review';
 import TagInput from './tagInput/tagInput';
 import TagsList from './tagsList/tagsList';
-import Rating from './rating/rating';
-import { auth } from '../../configAuth/firebaseConfig';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { sendPost } from '../../server/api';
+import Title from './titleReview/title';
+
 
 const CardCreateReview = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const [user] = useAuthState(auth);
+  const user = useSelector(({ user }) => user);
   const [image, setImage] = useState([]);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
@@ -27,7 +26,7 @@ const CardCreateReview = () => {
   const sendReview = () => {
     if (post && title && category) {
       sendPost({
-        name: user.displayName,
+        name: user.name,
         title: title,
         category: category,
         post: post,

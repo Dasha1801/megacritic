@@ -1,34 +1,25 @@
-// import Axios from 'axios';
 import { ListGroup } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './sidebar.module.css';
 import socialAuth from '../../configAuth/auth';
-import { logIn } from '../../redux/action';
+import { addUser, logIn } from '../../redux/action';
 import { facebookProvider, googleProvider } from '../../configAuth/provider';
+import { NavLink } from 'react-router-dom';
 
 const SideBar = () => {
   const isLogin = useSelector(({ isLogin }) => isLogin);
+  const user = useSelector(({ user }) => user);
   const dispatch = useDispatch();
   const handleBtn = async (provider) => {
     const res = await socialAuth(provider);
     if (res) {
-      // Axios.post(`https://secure-temple-92041.herokuapp.com/api/users`, {
-      // Axios.post(`http://localhost:3001/api/users`, {
-      //   name: res.displayName,
-      //   photo: res.photoURL,
-      // })
-      //   .then(function (response) {
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
       dispatch(logIn(true));
+      dispatch(addUser({ name: res.displayName, photo: res.photoURL }));
     }
   };
   return (
     <ListGroup className={styles.sidebar}>
-      {!isLogin && (
+      {!isLogin ? (
         <>
           <ListGroup.Item
             className={styles.fb}
@@ -39,6 +30,10 @@ const SideBar = () => {
             onClick={() => handleBtn(googleProvider)}
           />
         </>
+      ) : (
+        <NavLink to="/userPage">
+          <img className={styles.user} src={user.photo} alt="" />
+        </NavLink>
       )}
     </ListGroup>
   );

@@ -11,3 +11,10 @@ export const logIn = (result) => {
     payload: result,
   };
 };
+
+export const addUser = (result) => {
+  return {
+    type: 'ADD_USER',
+    payload: result,
+  };
+};

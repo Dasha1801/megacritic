@@ -1,14 +1,12 @@
-import { Card, Button } from 'react-bootstrap';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { auth } from '../../configAuth/firebaseConfig';
+import { Button, Card } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { logIn } from '../../redux/action';
 import styles from './cardUser.module.css';
 
 const CardUser = () => {
-  const [user] = useAuthState(auth);
   const langEn = useSelector(({ isLangEn }) => isLangEn);
+  const user = useSelector(({ user }) => user);
   const isLogin = useSelector(({ isLogin }) => isLogin);
   const dispatch = useDispatch();
 
@@ -18,12 +16,18 @@ const CardUser = () => {
 
   return (
     <Card className={styles.card}>
-      <Card.Img variant="top" src={user.photoURL} className={styles.photo} />
+      <Card.Img variant="top" src={user.photo} className={styles.photo} />
       <Card.Body>
-        <Card.Title className={styles.name}>{user.displayName}</Card.Title>
-        <Button variant="secondary" onClick={logOut} className={styles.logOut}>
-          {langEn ? 'Log out' : 'Выход'}
-        </Button>
+        <Card.Title className={styles.name}>{user.name}</Card.Title>
+        <NavLink to="/">
+          <Button
+            variant="secondary"
+            onClick={logOut}
+            className={styles.logOut}
+          >
+            {langEn ? 'Log out' : 'Выход'}
+          </Button>
+        </NavLink>
       </Card.Body>
     </Card>
   );

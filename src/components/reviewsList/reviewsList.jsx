@@ -1,23 +1,20 @@
+import { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { getAllPost } from '../../server/api';
 import ItemList from './itemList/itemList';
 import styles from './reviewsList.module.css';
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { getAllPost } from '../../server/api';
-import { auth } from '../../configAuth/firebaseConfig';
-import { useAuthState } from 'react-firebase-hooks/auth';
 
 const ReviewsList = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const [user] = useAuthState(auth);
-
+  const user = useSelector(({ user }) => user);
   const [myPosts, setMyPosts] = useState([]);
 
   useEffect(() => {
     getAllPost().then((res) => {
-      setMyPosts(res.filter((el) => el.name === user.displayName));
+      setMyPosts(res.filter((el) => el.name === user.name));
     });
-  }, []);
+  });
 
   return (
     <Table striped bordered hover className={styles.listReviews}>
