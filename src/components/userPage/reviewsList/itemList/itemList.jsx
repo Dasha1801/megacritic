@@ -7,6 +7,7 @@ import { deletePost } from '../../../../server/api';
 import CardReview from '../../../../shared/cardReview/cardReview';
 import UpdateItem from '../updateItem/updateItem';
 import styles from './itemList.module.css';
+import ReactMarkdown from 'react-markdown';
 
 const ItemList = ({ review }) => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
@@ -31,7 +32,7 @@ const ItemList = ({ review }) => {
       <td>{category}</td>
       <td>{title.slice(0, 22)}</td>
       <td className={styles.post}>
-        <span>{post.slice(0, 55)}...</span>
+      <ReactMarkdown children={post.slice(0, 55)} />
         <span className={styles.icons}>
           <FaBan
             color="red"

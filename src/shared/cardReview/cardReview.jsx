@@ -4,6 +4,7 @@ import StarRating from './starRating/starRating';
 import { FaRegThumbsUp } from 'react-icons/fa';
 import { FaRegThumbsDown } from 'react-icons/fa';
 import TagsList from '../cardCreateReview/tagsList/tagsList';
+import ReactMarkdown from 'react-markdown';
 
 const CardReview = ({ info }) => {
   const { image, post, rating, title, category, tags } = info;
@@ -16,12 +17,21 @@ const CardReview = ({ info }) => {
       </Card.Header>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Card.Text>{post}</Card.Text>
+        <Card.Text>
+          <ReactMarkdown children={post} />
+        </Card.Text>
         {image.length &&
           image.map((el, index) => {
-            return <Card.Img variant="top" src={el} className={styles.img} key={index}/>;
+            return (
+              <Card.Img
+                variant="top"
+                src={el}
+                className={styles.img}
+                key={index}
+              />
+            );
           })}
-          <TagsList tags={tags}/>
+        <TagsList tags={tags} />
       </Card.Body>
       <Card.Footer className={styles.likes}>
         <FaRegThumbsDown size={30} />

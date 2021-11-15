@@ -16,5 +16,5 @@ export const callbacks = {
 };
 
 export function randomNumber(){
-  return  Math.round(Math.random() * 30 + 26);
+  return  Math.round(Math.random() * 25 + 26);
 }
