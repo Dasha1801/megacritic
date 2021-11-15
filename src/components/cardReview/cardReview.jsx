@@ -18,8 +18,8 @@ const CardReview = ({ info }) => {
         <Card.Title>{title}</Card.Title>
         <Card.Text>{post}</Card.Text>
         {image.length &&
-          image.map((el) => {
-            return <Card.Img variant="top" src={el} className={styles.img} />;
+          image.map((el, index) => {
+            return <Card.Img variant="top" src={el} className={styles.img} key={index}/>;
           })}
           <TagsList tags={tags}/>
       </Card.Body>

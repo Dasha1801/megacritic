@@ -15,7 +15,7 @@ const App = () => {
         <Container className={styles.app}>
           <Header />
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" exact={true} element={<HomePage />} />
             <Route path="/movies" element={<MoviesPage />} />
             <Route path="/games" element={<GamesPage />} />
             <Route path="/books" element={<BooksPage />} />

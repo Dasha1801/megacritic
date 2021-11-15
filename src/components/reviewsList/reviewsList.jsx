@@ -7,14 +7,14 @@ import styles from './reviewsList.module.css';
 
 const ReviewsList = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const user = useSelector(({ user }) => user);
+  const { name } = useSelector(({ user }) => user);
   const [myPosts, setMyPosts] = useState([]);
 
   useEffect(() => {
     getAllPost().then((res) => {
-      setMyPosts(res.filter((el) => el.name === user.name));
+      setMyPosts(res.filter((el) => el.name === name));
     });
-  }, [user.name]);
+  }, [name, myPosts]);
 
   return (
     <Table striped bordered hover className={styles.listReviews}>

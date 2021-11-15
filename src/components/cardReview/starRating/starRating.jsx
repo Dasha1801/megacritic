@@ -6,11 +6,11 @@ const StarRating = ({ rating }) => {
 
   return (
     <div>
-      {yellowStars.map((el) => {
-        return <FaStar size={20} color="yellow" />;
+      {yellowStars.map((el, index) => {
+        return <FaStar size={20} color="yellow" key={index}/>;
       })}
-      {grayStarts.map((el) => {
-        return <FaStar size={20} color="gray" />;
+      {grayStarts.map((el, index) => {
+        return <FaStar size={20} color="gray" key={index}/>;
       })}
     </div>
   );
