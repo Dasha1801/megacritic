@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Table } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-import { getAllPost } from '../../server/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPosts } from '../../../redux/action';
+import { getAllPost } from '../../../server/api';
 import ItemList from './itemList/itemList';
 import styles from './reviewsList.module.css';
 
 const ReviewsList = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
+  const dispatch = useDispatch();
+  const posts = useSelector(({ posts }) => posts);
   const { name } = useSelector(({ user }) => user);
-  const [myPosts, setMyPosts] = useState([]);
 
   useEffect(() => {
     getAllPost().then((res) => {
-      setMyPosts(res.filter((el) => el.name === name));
+      dispatch(getPosts(res));
     });
-  }, [name, myPosts]);
+  }, [dispatch]);
 
+  const myPosts = posts.filter((el) => el.name === name);
   return (
     <Table striped bordered hover className={styles.listReviews}>
       <thead>

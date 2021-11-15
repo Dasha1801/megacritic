@@ -18,3 +18,10 @@ export const addUser = (result) => {
     payload: result,
   };
 };
+
+export const getPosts = (result) => {
+  return {
+    type: 'GET_POSTS',
+    payload: result,
+  };
+};

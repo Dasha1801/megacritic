@@ -1,6 +1,6 @@
-import CardCreateReview from '../cardCreateReview/cardCreateReview';
-import CardUser from '../cardUser/cardUser';
-import ReviewsList from '../reviewsList/reviewsList';
+import CardCreateReview from '../../shared/cardCreateReview/cardCreateReview';
+import CardUser from './cardUser/cardUser';
+import ReviewsList from './reviewsList/reviewsList';
 import styles from './userPage.module.css';
 
 const UserPage = () => {

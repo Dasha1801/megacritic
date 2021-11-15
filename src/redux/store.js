@@ -8,6 +8,7 @@ export const initStore = {
     name: '',
     photo: '',
   },
+  posts:[]
 };
 
 export const store = configureStore({

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { getPosts } from '../../redux/action';
 import { sendPost } from '../../server/api';
 import styles from './cardCreateReview.module.css';
 import Category from './category/category';
@@ -11,10 +13,11 @@ import TagInput from './tagInput/tagInput';
 import TagsList from './tagsList/tagsList';
 import Title from './titleReview/title';
 
-
 const CardCreateReview = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
   const user = useSelector(({ user }) => user);
+  const posts = useSelector(({ posts }) => posts);
+  const dispatch = useDispatch();
   const [image, setImage] = useState([]);
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
@@ -25,7 +28,7 @@ const CardCreateReview = () => {
 
   const sendReview = () => {
     if (post && title && category && rating) {
-      sendPost({
+      const newPost = {
         name: user.name,
         title: title,
         category: category,
@@ -35,7 +38,9 @@ const CardCreateReview = () => {
         tags: tags,
         thumbsUp: 0,
         thumbsDown: 0,
-      });
+      };
+      sendPost(newPost);
+      dispatch(getPosts([...posts, newPost]));
       reset();
     } else {
       setError(

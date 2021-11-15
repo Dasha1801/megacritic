@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getAllPost } from '../../server/api';
 import BasePage from '../../shared/basePage/basePage';
-import WordCloud from '../wordCloud/wordCloud';
+import WordCloud from './wordCloud/wordCloud';
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);

@@ -1,4 +1,4 @@
-import CardReview from '../../components/cardReview/cardReview';
+import CardReview from '../cardReview/cardReview';
 import SideBar from '../../components/sidebar/sidebar';
 
 const BasePage = ({ posts }) => {

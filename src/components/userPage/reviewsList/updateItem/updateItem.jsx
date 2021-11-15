@@ -1,15 +1,15 @@
 import { Form, Button } from 'react-bootstrap';
-import Category from '../../cardCreateReview/category/category';
-import DropZone from '../../cardCreateReview/dnd/dnd';
-import Rating from '../../cardCreateReview/rating/rating';
-import Review from '../../cardCreateReview/review/review';
-import TagInput from '../../cardCreateReview/tagInput/tagInput';
-import Title from '../../cardCreateReview/titleReview/title';
-import styles from '../../cardCreateReview/cardCreateReview.module.css';
+import Category from '../../../../shared/cardCreateReview/category/category';
+import DropZone from '../../../../shared/cardCreateReview/dnd/dnd';
+import Rating from '../../../../shared/cardCreateReview/rating/rating';
+import Review from '../../../../shared/cardCreateReview/review/review';
+import TagInput from '../../../../shared/cardCreateReview/tagInput/tagInput';
+import Title from '../../../../shared/cardCreateReview/titleReview/title';
+import styles from '../../../../shared/cardCreateReview/cardCreateReview.module.css';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import TagsList from '../../cardCreateReview/tagsList/tagsList';
-import { updatePost } from '../../../server/api';
+import TagsList from '../../../../shared/cardCreateReview/tagsList/tagsList';
+import { updatePost } from '../../../../server/api';
 
 
 const UpdateItem = ({ info, setPopupUpdate }) => {
