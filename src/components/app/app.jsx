@@ -1,42 +1,25 @@
 import { Container } from 'react-bootstrap';
-import Header from '../header/header';
-import styles from './app.module.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
-import UserPage from '../userPage/userPage';
+import BooksPage from '../booksPage/booksPage';
+import GamesPage from '../gamesPage/gamesPage';
+import Header from '../header/header';
 import HomePage from '../homePage/homePage';
 import MoviesPage from '../moviesPage/moviesPage';
-import GamesPage from '../gamesPage/gamesPage';
-import BooksPage from '../booksPage/booksPage';
+import UserPage from '../userPage/userPage';
+import styles from './app.module.css';
 
 const App = () => {
-  // const isLogin = useSelector(({ isLogin }) => isLogin);
   return (
     <>
       <Router>
         <Container className={styles.app}>
           <Header />
           <Routes>
-            <Route
-              path="/"
-              element={<HomePage/>}
-            />
-             <Route
-              path="/movies"
-              element={<MoviesPage/>}
-            />
-            <Route
-              path="/games"
-              element={<GamesPage/>}
-            />
-            <Route
-              path="/books"
-              element={<BooksPage/>}
-            />
-            <Route
-              path="/userPage"
-              element={<UserPage/>}
-            />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/movies" element={<MoviesPage />} />
+            <Route path="/games" element={<GamesPage />} />
+            <Route path="/books" element={<BooksPage />} />
+            <Route path="/user" element={<UserPage />} />
           </Routes>
         </Container>
       </Router>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getAllPost } from '../../server/api';
-import CardReview from '../cardReview/cardReview';
-import SideBar from '../sidebar/sidebar';
+import BasePage from '../../shared/basePage/basePage';
 
 const BooksPage = () => {
   const [posts, setPosts] = useState([]);
@@ -12,13 +11,6 @@ const BooksPage = () => {
     });
   }, []);
 
-  return (
-    <div>
-       <SideBar />
-      {posts.map((info) => {
-        return <CardReview info={info} key={info.id} />;
-      })}
-    </div>
-  );
+  return <BasePage posts={posts}/>
 };
 export default BooksPage;

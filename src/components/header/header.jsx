@@ -28,7 +28,7 @@ const Header = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <NavLink to="/" className={styles.link} activeClassName="active">
+            <NavLink exact to="/" className={styles.link} activeClassName="active" >
               {langEn ? 'home' : 'главная'}
             </NavLink>
             <NavLink

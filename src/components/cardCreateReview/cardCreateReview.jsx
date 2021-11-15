@@ -24,7 +24,7 @@ const CardCreateReview = () => {
   const [error, setError] = useState('');
 
   const sendReview = () => {
-    if (post && title && category) {
+    if (post && title && category && rating) {
       sendPost({
         name: user.name,
         title: title,

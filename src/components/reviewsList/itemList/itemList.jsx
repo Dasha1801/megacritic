@@ -1,22 +1,20 @@
 import { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import { FaBan } from 'react-icons/fa';
-import { FaEye } from 'react-icons/fa';
-import { FaPencilAlt } from 'react-icons/fa';
-import styles from './itemList.module.css';
+import { Modal } from 'react-bootstrap';
+import { FaBan, FaEye, FaPencilAlt } from 'react-icons/fa';
+import { deletePost } from '../../../server/api';
 import CardReview from '../../cardReview/cardReview';
 import UpdateItem from '../updateItem/updateItem';
-import { deletePost } from '../../../server/api';
+import styles from './itemList.module.css';
 
-const ItemList = ({ info }) => {
-  const { category, title, post } = info;
+const ItemList = ({ review }) => {
+  const { category, title, post } = review;
   const [popupReview, setPopupReview] = useState(false);
   const [popupUpdate, setPopupUpdate] = useState(false);
   const reviewClose = () => setPopupReview(false);
   const updateClose = () => setPopupUpdate(false);
 
   const deleteItem = () => {
-    deletePost(info);
+    deletePost(review);
   };
 
   return (
@@ -40,18 +38,12 @@ const ItemList = ({ info }) => {
       </td>
       <Modal show={popupReview} onHide={reviewClose}>
         <Modal.Body>
-          <CardReview info={info} />
+          <CardReview info={review} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={reviewClose}>
-            Close
-          </Button>
-        </Modal.Footer>
       </Modal>
-
       <Modal show={popupUpdate} onHide={updateClose}>
         <Modal.Body>
-          <UpdateItem info={info} setPopupUpdate={setPopupUpdate} />
+          <UpdateItem info={review} setPopupUpdate={setPopupUpdate}/>
         </Modal.Body>
       </Modal>
     </tr>

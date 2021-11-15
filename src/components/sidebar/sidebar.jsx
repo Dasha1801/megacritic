@@ -31,8 +31,13 @@ const SideBar = () => {
           />
         </>
       ) : (
-        <NavLink to="/userPage">
-          <img className={styles.user} src={user.photo} alt="" />
+        <NavLink to="/user">
+          <img
+            className={styles.user}
+            src={user.photo}
+            alt=""
+            title={user.name}
+          />
         </NavLink>
       )}
     </ListGroup>

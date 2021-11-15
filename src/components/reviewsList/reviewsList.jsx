@@ -14,7 +14,7 @@ const ReviewsList = () => {
     getAllPost().then((res) => {
       setMyPosts(res.filter((el) => el.name === user.name));
     });
-  });
+  }, [user.name]);
 
   return (
     <Table striped bordered hover className={styles.listReviews}>
@@ -27,8 +27,8 @@ const ReviewsList = () => {
       </thead>
       <tbody>
         {myPosts.length
-          ? myPosts.map((info) => {
-              return <ItemList info={info} key={info.id} />;
+          ? myPosts.map((review) => {
+              return <ItemList review={review} key={review.id} />;
             })
           : null}
       </tbody>

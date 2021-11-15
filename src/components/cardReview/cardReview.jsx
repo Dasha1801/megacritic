@@ -9,7 +9,7 @@ const CardReview = ({ info }) => {
   const { image, post, rating, title, category, tags } = info;
 
   return (
-    <Card className="text-center">
+    <Card className={styles.card}>
       <Card.Header className={styles.headerCard}>
         <h5>{category}</h5>
         <StarRating rating={rating} />

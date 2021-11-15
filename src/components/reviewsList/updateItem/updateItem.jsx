@@ -23,7 +23,7 @@ const UpdateItem = ({ info, setPopupUpdate }) => {
   const [error, setError] = useState('');
 
   const sendReview = () => {
-    if (post && title && category) {
+    if (post && title && category && rating) {
       updatePost({
         id: info.id,
         title: title,
