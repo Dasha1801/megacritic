@@ -6,11 +6,24 @@ import { FaRegThumbsDown } from 'react-icons/fa';
 import TagsList from '../cardCreateReview/tagsList/tagsList';
 import ReactMarkdown from 'react-markdown';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 const CardReview = ({ info }) => {
   const isLogin = useSelector(({ isLogin }) => isLogin);
   const user = useSelector(({ user }) => user);
   const { image, post, rating, title, category, tags, name } = info;
+  const [thumbsDown, setThumbsDown] = useState(false);
+  const [thumbsUp, setThumbsUp] = useState(false);
+
+  const handleThumbsDown = () => {
+    setThumbsDown(true);
+    setThumbsUp(false);
+  };
+
+  const handleThumbsUp = () => {
+    setThumbsUp(true);
+    setThumbsDown(false);
+  };
 
   return (
     <Card className={styles.card}>
@@ -39,8 +52,18 @@ const CardReview = ({ info }) => {
       </Card.Body>
       {isLogin && user.name !== name && (
         <Card.Footer className={styles.likes}>
-          <FaRegThumbsDown size={30} />
-          <FaRegThumbsUp size={30} />
+          <FaRegThumbsDown
+            size={30}
+            className={styles.thumbIcon}
+            color={thumbsDown ? 'red' : 'gray'}
+            onClick={handleThumbsDown}
+          />
+          <FaRegThumbsUp
+            size={30}
+            className={styles.thumbIcon}
+            color={thumbsUp ? 'green' : 'gray'}
+            onClick={handleThumbsUp}
+          />
         </Card.Footer>
       )}
     </Card>

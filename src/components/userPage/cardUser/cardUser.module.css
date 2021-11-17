@@ -17,6 +17,14 @@
   font-size: 1.1rem;
 }
 
+.likes {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border: none;
+  width: 100%;
+}
+
 @media (max-width: 735px) {
   .name,
   .logOut {

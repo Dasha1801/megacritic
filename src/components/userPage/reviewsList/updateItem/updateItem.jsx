@@ -1,16 +1,15 @@
-import { Form, Button } from 'react-bootstrap';
+import { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { updatePost } from '../../../../server/api';
+import styles from '../../../../shared/cardCreateReview/cardCreateReview.module.css';
 import Category from '../../../../shared/cardCreateReview/category/category';
 import DropZone from '../../../../shared/cardCreateReview/dnd/dnd';
 import Rating from '../../../../shared/cardCreateReview/rating/rating';
 import Review from '../../../../shared/cardCreateReview/review/review';
 import TagInput from '../../../../shared/cardCreateReview/tagInput/tagInput';
-import Title from '../../../../shared/cardCreateReview/titleReview/title';
-import styles from '../../../../shared/cardCreateReview/cardCreateReview.module.css';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
 import TagsList from '../../../../shared/cardCreateReview/tagsList/tagsList';
-import { updatePost } from '../../../../server/api';
-
+import Title from '../../../../shared/cardCreateReview/titleReview/title';
 
 const UpdateItem = ({ info, setPopupUpdate }) => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
@@ -33,7 +32,6 @@ const UpdateItem = ({ info, setPopupUpdate }) => {
         rating: rating,
         tags: tags,
       });
-
       setPopupUpdate(false);
       reset();
     } else {

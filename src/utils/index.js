@@ -1,22 +1,11 @@
-export const filter = (value, state, setState) => {
-  if (value === '') {
-    setState(state);
-  } else {
-    const filterPosts = [...state].filter((el) => el.category === value);
-    setState(filterPosts);
-  }
-};
+export const filter = (value, posts) =>
+  !value ? posts : [...posts].filter((el) => el.category === value);
 
-export const sort = (value, state, setState) => {
+export const sort = (value, posts) => {
   if (!value) {
-    setState(state);
-  } else if (value === 'inc') {
-    const sortPosts = [...state].sort((x, y) => x.rating - y.rating);
-    setState(sortPosts);
-  } else {
-    const sortPosts = [...state].sort((x, y) => y.rating - x.rating);
-    setState(sortPosts);
+    return posts;
   }
+  return value === 'inc'
+    ? [...posts].sort((x, y) => x.rating - y.rating)
+    : [...posts].sort((x, y) => y.rating - x.rating);
 };
-
-

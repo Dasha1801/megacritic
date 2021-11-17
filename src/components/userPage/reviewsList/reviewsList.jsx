@@ -10,6 +10,8 @@ import styles from './reviewsList.module.css';
 const ReviewsList = () => {
   const posts = useSelector(({ posts }) => posts);
   const [myPosts, setMyPosts] = useState([]);
+  const [filterParams, setFilterParams] = useState('');
+  const [sortParams, setSortParams] = useState('');
   const langEn = useSelector(({ isLangEn }) => isLangEn);
   const { name } = useSelector(({ user }) => user);
   const dispatch = useDispatch();
@@ -22,12 +24,17 @@ const ReviewsList = () => {
   }, [name, dispatch, posts.length]);
 
   const filterCategory = (e) => {
-    const { value } = e.target;
-    filter(value, posts, setMyPosts);
+    setFilterParams(e.target.value);
   };
+
   const sortRating = (e) => {
-    const { value } = e.target;
-    sort(value, myPosts, setMyPosts);
+    setSortParams(e.target.value);
+  };
+
+  const showMyPosts = () => {
+    const filterPosts = filter(filterParams, myPosts);
+    const sortedPosts = sort(sortParams, filterPosts);
+    return sortedPosts.map((post) => <ItemList review={post} key={post.id} />);
   };
 
   return (
@@ -67,11 +74,7 @@ const ReviewsList = () => {
             <th>{langEn ? 'Post' : 'Обзор'}</th>
           </tr>
         </thead>
-        <tbody>
-          {myPosts.map((review) => {
-            return <ItemList review={review} key={review.id} />;
-          })}
-        </tbody>
+        <tbody>{showMyPosts()}</tbody>
       </Table>
     </>
   );
