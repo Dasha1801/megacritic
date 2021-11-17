@@ -3,4 +3,32 @@
   margin: 1% auto;
 }
 
+.wrapperSort {
+  width: 40%;
+  display: flex;
+  margin: 3% 0 0 3%;
+}
 
+@media (max-width: 1005px) {
+  .sort {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 850px) {
+  .wrapperSort {
+    width: 55%;
+  }
+}
+
+@media (max-width: 630px) {
+  .wrapperSort {
+    width: 75%;
+  }
+}
+
+@media (max-width: 470px) {
+  .wrapperSort {
+    width: 94%;
+  }
+}

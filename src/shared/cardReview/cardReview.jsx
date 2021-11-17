@@ -5,15 +5,19 @@ import { FaRegThumbsUp } from 'react-icons/fa';
 import { FaRegThumbsDown } from 'react-icons/fa';
 import TagsList from '../cardCreateReview/tagsList/tagsList';
 import ReactMarkdown from 'react-markdown';
+import { useSelector } from 'react-redux';
 
 const CardReview = ({ info }) => {
-  const { image, post, rating, title, category, tags } = info;
+  const isLogin = useSelector(({ isLogin }) => isLogin);
+  const user = useSelector(({ user }) => user);
+  const { image, post, rating, title, category, tags, name } = info;
 
   return (
     <Card className={styles.card}>
       <Card.Header className={styles.headerCard}>
         <h5>{category}</h5>
-        <StarRating rating={rating} />
+        {isLogin && user.name !== name && <StarRating rating={rating} />}
+        <h5>{rating}/10</h5>
       </Card.Header>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
@@ -33,10 +37,12 @@ const CardReview = ({ info }) => {
           })}
         <TagsList tags={tags} />
       </Card.Body>
-      <Card.Footer className={styles.likes}>
-        <FaRegThumbsDown size={30} />
-        <FaRegThumbsUp size={30} />
-      </Card.Footer>
+      {isLogin && user.name !== name && (
+        <Card.Footer className={styles.likes}>
+          <FaRegThumbsDown size={30} />
+          <FaRegThumbsUp size={30} />
+        </Card.Footer>
+      )}
     </Card>
   );
 };

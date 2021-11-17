@@ -1,7 +1,7 @@
 import { Button, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { addUser, logIn } from '../../../redux/action';
+import { addUser, getPosts, logIn } from '../../../redux/action';
 import styles from './cardUser.module.css';
 
 const CardUser = () => {
@@ -13,6 +13,7 @@ const CardUser = () => {
   const logOut = () => {
     dispatch(logIn(!isLogin));
     dispatch(addUser({ name: '', photo: '' }));
+    dispatch(getPosts([]));
   };
 
   return (

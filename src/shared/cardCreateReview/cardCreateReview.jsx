@@ -3,7 +3,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getPosts } from '../../redux/action';
-import { sendPost } from '../../server/api';
+import { getAllMyPost, sendPost } from '../../server/api';
 import styles from './cardCreateReview.module.css';
 import Category from './category/category';
 import DropZone from './dnd/dnd';
@@ -16,7 +16,6 @@ import Title from './titleReview/title';
 const CardCreateReview = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
   const user = useSelector(({ user }) => user);
-  const posts = useSelector(({ posts }) => posts);
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
   const [title, setTitle] = useState('');
@@ -25,6 +24,13 @@ const CardCreateReview = () => {
   const [tags, setTags] = useState([]);
   const [rating, setRating] = useState('');
   const [error, setError] = useState('');
+
+  const updatePosts = async (newPost) => {
+    await sendPost(newPost);
+    getAllMyPost(user.name).then((res) => {
+      dispatch(getPosts(res));
+    });
+  };
 
   const sendReview = () => {
     if (post && title && category && rating) {
@@ -39,8 +45,7 @@ const CardCreateReview = () => {
         thumbsUp: 0,
         thumbsDown: 0,
       };
-      sendPost(newPost);
-      dispatch(getPosts([...posts, newPost]));
+      updatePosts(newPost);
       reset();
     } else {
       setError(

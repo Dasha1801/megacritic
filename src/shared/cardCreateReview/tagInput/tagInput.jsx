@@ -6,14 +6,17 @@ import styles from './tagInput.module.css';
 const TagInput = ({ setTags }) => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
   const [tag, setTag] = useState('');
+
   const getTag = (e) => {
     const { value } = e.target;
     setTag(value);
   };
 
   const resetTag = () => {
-    setTags((state) => [...state, tag]);
-    setTag('');
+    if (tag.trim()) {
+      setTags((state) => [...state, tag]);
+      setTag('');
+    }
   };
 
   return (

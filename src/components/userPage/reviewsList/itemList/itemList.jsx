@@ -35,7 +35,7 @@ const ItemList = ({ review }) => {
       <ReactMarkdown children={post.slice(0, 55)} />
         <span className={styles.icons}>
           <FaBan
-            color="red"
+            color="#d12c1f"
             className={styles.icon}
             onClick={() => setPopupDelete(true)}
           />
