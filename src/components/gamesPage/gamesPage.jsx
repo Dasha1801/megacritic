@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getAllPost } from '../../server/api';
+import { getAllGames } from '../../server/api';
 import BasePage from '../../shared/basePage/basePage';
 
 const GamesPage = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    getAllPost().then((res) => {
-      setPosts(res.filter((el) => el.category === 'games'));
+    getAllGames().then((res) => {
+      setPosts(res);
     });
   }, []);
 

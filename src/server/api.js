@@ -17,6 +17,21 @@ export const getAllPost = () =>
     return res.data;
   });
 
+export const getAllBooks = () =>
+  Axios.get(`${baseUrl}/books`).then(function (res) {
+    return res.data;
+  });
+
+export const getAllGames = () =>
+  Axios.get(`${baseUrl}/games`).then(function (res) {
+    return res.data;
+  });
+
+export const getAllMovies = () =>
+  Axios.get(`${baseUrl}/movies`).then(function (res) {
+    return res.data;
+  });
+
 export const getAllMyPost = (name) =>
   Axios.get(`${baseUrl}/published`).then(function (res) {
     const data = res.data;
