@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllMovies } from '../../server/api';
+import { getAllMovies } from '../../server/api/post';
 import BasePage from '../../shared/basePage/basePage';
 
 const MoviesPage = () => {

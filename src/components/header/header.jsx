@@ -11,12 +11,11 @@ import styles from './header.module.css';
 import Lang from './lang/lang';
 import { useSelector } from 'react-redux';
 
-
 const Header = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
 
   const handleButton = () => {
-    
+ 
   };
   return (
     <Navbar bg="light" expand="lg" fix="top" className={styles.header}>

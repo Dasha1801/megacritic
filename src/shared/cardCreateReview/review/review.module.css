@@ -2,6 +2,8 @@
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
-  padding: 1%;
+  padding:  1.5% 1% 1%;
   margin-top: 1%;
+  font-size: 12px;
+  line-height: 12px;
 }

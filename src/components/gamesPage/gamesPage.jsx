@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllGames } from '../../server/api';
+import { getAllGames } from '../../server/api/post';
 import BasePage from '../../shared/basePage/basePage';
 
 const GamesPage = () => {

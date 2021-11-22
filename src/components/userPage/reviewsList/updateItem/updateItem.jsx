@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-import { updatePost } from '../../../../server/api';
+import { updatePost } from '../../../../server/api/post';
 import styles from '../../../../shared/cardCreateReview/cardCreateReview.module.css';
 import Category from '../../../../shared/cardCreateReview/category/category';
 import DropZone from '../../../../shared/cardCreateReview/dnd/dnd';

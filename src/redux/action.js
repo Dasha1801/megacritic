@@ -25,3 +25,10 @@ export const getPosts = (result) => {
     payload: result,
   };
 };
+
+export const getReview = (result) => {
+  return {
+    type: 'GET_REVIEW',
+    payload: result,
+  };
+};

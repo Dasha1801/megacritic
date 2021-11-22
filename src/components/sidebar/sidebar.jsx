@@ -9,12 +9,19 @@ import { NavLink } from 'react-router-dom';
 const SideBar = () => {
   const isLogin = useSelector(({ isLogin }) => isLogin);
   const user = useSelector(({ user }) => user);
+ 
   const dispatch = useDispatch();
   const handleBtn = async (provider) => {
     const res = await socialAuth(provider);
     if (res) {
       dispatch(logIn(true));
-      dispatch(addUser({ name: res.displayName, photo: res.photoURL }));
+      dispatch(
+        addUser({
+          name: res.displayName,
+          photo: res.photoURL,
+          email: res.email || res.providerData[0].email,
+        })
+      );
     }
   };
   return (

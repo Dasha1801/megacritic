@@ -7,8 +7,10 @@ export const initStore = {
   user: {
     name: '',
     photo: '',
+    email: '',
   },
-  posts:[]
+  posts: [],
+  review: null
 };
 
 export const store = configureStore({

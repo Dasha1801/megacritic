@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllPost } from '../../server/api';
+import { getAllPost } from '../../server/api/post';
 import BasePage from '../../shared/basePage/basePage';
 import WordCloud from './wordCloud/wordCloud';
 

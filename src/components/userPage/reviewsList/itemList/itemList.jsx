@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { FaBan, FaEye, FaPencilAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../../../redux/action';
-import { deletePost } from '../../../../server/api';
+import { deletePost } from '../../../../server/api/post';
 import CardReview from '../../../../shared/cardReview/cardReview';
 import UpdateItem from '../updateItem/updateItem';
 import styles from './itemList.module.css';

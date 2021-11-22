@@ -5,6 +5,7 @@ import GamesPage from '../gamesPage/gamesPage';
 import Header from '../header/header';
 import HomePage from '../homePage/homePage';
 import MoviesPage from '../moviesPage/moviesPage';
+import ReviewPage from '../reviewPage/reviewPage';
 import UserPage from '../userPage/userPage';
 import styles from './app.module.css';
 
@@ -20,6 +21,7 @@ const App = () => {
             <Route path="/games" element={<GamesPage />} />
             <Route path="/books" element={<BooksPage />} />
             <Route path="/user" element={<UserPage />} />
+            <Route path="/review/*" element={<ReviewPage />} />
           </Routes>
         </Container>
       </Router>

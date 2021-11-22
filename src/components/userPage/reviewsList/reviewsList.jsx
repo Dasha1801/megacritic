@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Form, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../../redux/action';
-import { getAllMyPost } from '../../../server/api';
+import { getAllMyPost } from '../../../server/api/post';
 import { filter, sort } from '../../../utils';
 import ItemList from './itemList/itemList';
 import styles from './reviewsList.module.css';
@@ -13,15 +13,15 @@ const ReviewsList = () => {
   const [filterParams, setFilterParams] = useState('');
   const [sortParams, setSortParams] = useState('');
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const { name } = useSelector(({ user }) => user);
+  const { email } = useSelector(({ user }) => user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllMyPost(name).then((res) => {
+    getAllMyPost(email).then((res) => {
       dispatch(getPosts(res));
       setMyPosts(res);
     });
-  }, [name, dispatch, posts.length]);
+  }, [email, dispatch, posts.length]);
 
   const filterCategory = (e) => {
     setFilterParams(e.target.value);

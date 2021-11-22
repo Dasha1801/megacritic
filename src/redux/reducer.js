@@ -10,6 +10,8 @@ export const reducer = (state = initStore, action) => {
       return { ...state, user: action.payload };
     case 'GET_POSTS':
       return { ...state, posts: action.payload };
+    case 'GET_REVIEW':
+      return { ...state, review: action.payload };
     default:
       return state;
   }

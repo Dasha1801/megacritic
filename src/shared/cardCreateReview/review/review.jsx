@@ -1,14 +1,11 @@
-import MarkdownEditor from '@uiw/react-markdown-editor';
 import styles from './review.module.css';
+import MDEditor from '@uiw/react-md-editor';
 
 const Review = ({ setPost, value }) => {
-
   return (
-    <MarkdownEditor
-      value={value}
-      onChange={(editor, data, value) => setPost(value)}
-      className={styles.review}
-    />
+    <div className={styles.review}>
+      <MDEditor value={value} onChange={setPost} />
+    </div>
   );
 };
 

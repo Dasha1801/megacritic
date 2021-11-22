@@ -3,3 +3,9 @@
   align-items: center;
   margin: 0 3%;
 }
+
+@media (max-width: 640px) {
+  .userPage {
+    flex-direction: column;
+  }
+}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllBooks} from '../../server/api';
+import { getAllBooks} from '../../server/api/post';
 import BasePage from '../../shared/basePage/basePage';
 
 const BooksPage = () => {
