@@ -6,18 +6,24 @@ import { sendComment } from '../../../server/api/comment';
 
 const CardCreateComment = ({ setIsUpdate }) => {
   const [comment, setComment] = useState('');
+  const [showError, setShowError] = useState(false);
   const langEn = useSelector(({ isLangEn }) => isLangEn);
   const { id } = useSelector(({ review }) => review);
 
   const getComment = (e) => {
+    setShowError(false);
     const { value } = e.target;
-    setComment(value.trim());
+    setComment(value);
+  };
+
+  const addComment = () => {
+    sendComment({ reviewId: id, text: comment.trim() });
+    setIsUpdate(true);
+    setComment('');
   };
 
   const handlerBtn = () => {
-    sendComment({ reviewId: id, text: comment });
-    setIsUpdate(true);
-    setComment('');
+    comment.trim() ? addComment() : setShowError(true);
   };
 
   return (
@@ -30,6 +36,12 @@ const CardCreateComment = ({ setIsUpdate }) => {
           onChange={getComment}
           placeholder={langEn ? 'Write your comment' : 'Оставь комментарий'}
         />
+        <span style={{ color: 'red', fontSize: '12px' }}>
+          {showError &&
+            (langEn
+              ? '***string cannot contain only spaces'
+              : '***строка не может содержать только пробелы')}
+        </span>
         {comment && (
           <Button
             variant="primary"

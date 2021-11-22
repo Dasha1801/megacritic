@@ -13,15 +13,15 @@ const ReviewsList = () => {
   const [filterParams, setFilterParams] = useState('');
   const [sortParams, setSortParams] = useState('');
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const { email } = useSelector(({ user }) => user);
+  const { id } = useSelector(({ user }) => user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllMyPost(email).then((res) => {
+    getAllMyPost(id).then((res) => {
       dispatch(getPosts(res));
       setMyPosts(res);
     });
-  }, [email, dispatch, posts.length]);
+  }, [id, dispatch, posts.length]);
 
   const filterCategory = (e) => {
     setFilterParams(e.target.value);

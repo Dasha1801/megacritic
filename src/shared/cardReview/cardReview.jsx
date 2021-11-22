@@ -4,19 +4,21 @@ import StarRating from './starRating/starRating';
 import { FaRegThumbsUp, FaEye, FaRegThumbsDown } from 'react-icons/fa';
 import TagsList from '../cardCreateReview/tagsList/tagsList';
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getReview } from '../../redux/action';
+import { getRatings } from '../../server/api/rating';
 
 const CardReview = ({ info }) => {
   const dispatch = useDispatch();
   const isLogin = useSelector(({ isLogin }) => isLogin);
   const user = useSelector(({ user }) => user);
-  const { image, post, rating, title, category, tags, name } = info;
+  const { image, post, rating, title, category, tags, uid, id } = info;
   const [thumbsDown, setThumbsDown] = useState(false);
   const [thumbsUp, setThumbsUp] = useState(false);
+  const [ratings, setRatings] = useState([]);
 
   const handleThumbsDown = () => {
     setThumbsDown(true);
@@ -28,12 +30,31 @@ const CardReview = ({ info }) => {
     setThumbsDown(false);
   };
 
+  const getAllRatings = async () => {
+    const allRatings = await getRatings();
+    const ratings = allRatings.filter((el) => el.reviewId === id);
+    setRatings(ratings);
+  };
+
+  const getMediumRating = () => {
+    const countRating = ratings.reduce((acc, el) => {
+      acc += el.rating;
+      return acc;
+    }, 0);
+    const mediumRating = (countRating + rating) / (ratings.length + 1);
+    return Math.round(mediumRating * 10) / 10;
+  };
+
+  useEffect(() => {
+    getAllRatings();
+  }, []);
+
   return (
     <Card className={styles.card}>
       <Card.Header className={styles.headerCard}>
         <h5>{category}</h5>
-        {isLogin && user.email !== name && <StarRating rating={rating} />}
-        <h5>{rating}/10</h5>
+        {isLogin && user.id !== uid && <StarRating reviewId={id} />}
+        <h5>{getMediumRating()}/10</h5>
       </Card.Header>
       <Card.Body>
         <Card.Title>
@@ -51,20 +72,21 @@ const CardReview = ({ info }) => {
         <Card.Text>
           <MDEditor.Markdown source={post} />
         </Card.Text>
-        {image.length &&
-          image.map((el, index) => {
-            return (
-              <Card.Img
-                variant="top"
-                src={el}
-                className={styles.img}
-                key={index}
-              />
-            );
-          })}
+        {image.length
+          ? image.map((el, index) => {
+              return (
+                <Card.Img
+                  variant="top"
+                  src={el}
+                  className={styles.img}
+                  key={index}
+                />
+              );
+            })
+          : null}
         <TagsList tags={tags} />
       </Card.Body>
-      {isLogin && user.email !== name && (
+      {isLogin && user.id !== uid && (
         <Card.Footer className={styles.likes}>
           <FaRegThumbsDown
             size={30}

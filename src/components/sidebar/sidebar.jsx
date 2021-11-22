@@ -19,7 +19,7 @@ const SideBar = () => {
         addUser({
           name: res.displayName,
           photo: res.photoURL,
-          email: res.email || res.providerData[0].email,
+          id: res.uid,
         })
       );
     }

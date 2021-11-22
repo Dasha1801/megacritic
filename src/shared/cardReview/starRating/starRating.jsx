@@ -1,23 +1,21 @@
 import { useCallback, useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
+import { sendRating } from '../../../server/api/rating';
 import styles from './starRating.module.css';
 
-const StarRating = ({ rating }) => {
+const StarRating = ({ reviewId }) => {
+  const { id } = useSelector(({ user }) => user);
+
   const [newRating, setNewRating] = useState(null);
   const [hover, setHover] = useState(null);
   const stars = [...Array(10)];
 
-  const updateRating = useCallback(() => {
-    console.log(rating, newRating);
-    console.log((rating + newRating) / 2);
-    return (rating + newRating) / 2;
-  },[newRating, rating]);
-
   useEffect(() => {
     if (newRating) {
-      updateRating();
+      sendRating({ rating: newRating, uid: id, reviewId: reviewId });
     }
-  }, [newRating, updateRating]);
+  }, [newRating, id, reviewId]);
 
   return (
     <div>
@@ -30,7 +28,6 @@ const StarRating = ({ rating }) => {
               className={styles.starInput}
               value={ratingValue}
               onClick={() => setNewRating(ratingValue)}
-              disabled={newRating}
             />
             <FaStar
               size={20}

@@ -30,10 +30,10 @@ export const getAllMovies = () =>
     return res.data;
   });
 
-export const getAllMyPost = (email) =>
+export const getAllMyPost = (id) =>
   Axios.get(`${baseUrl}/published`).then(function (res) {
     const data = res.data;
-    return data.filter((el) => el.name === email);
+    return data.filter((el) => el.uid === id);
   });
 
 export const updatePost = (res) =>

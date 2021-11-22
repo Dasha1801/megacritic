@@ -15,7 +15,7 @@ import Title from './titleReview/title';
 
 const CardCreateReview = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const { email } = useSelector(({ user }) => user);
+  const { id } = useSelector(({ user }) => user);
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
   const [title, setTitle] = useState('');
@@ -27,7 +27,7 @@ const CardCreateReview = () => {
 
   const updatePosts = async (newPost) => {
     await sendPost(newPost);
-    getAllMyPost(email).then((res) => {
+    getAllMyPost(id).then((res) => {
       dispatch(getPosts(res));
     });
   };
@@ -35,7 +35,7 @@ const CardCreateReview = () => {
   const sendReview = () => {
     if (post && title && category && rating) {
       const newPost = {
-        name: email,
+        uid: id,
         title: title,
         category: category,
         post: post,

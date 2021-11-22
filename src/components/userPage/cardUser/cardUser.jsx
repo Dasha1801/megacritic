@@ -13,7 +13,7 @@ const CardUser = () => {
 
   const logOut = () => {
     dispatch(logIn(!isLogin));
-    dispatch(addUser({ name: '', photo: '' }));
+    dispatch(addUser({ name: '', photo: '', id: '' }));
     dispatch(getPosts([]));
   };
 
@@ -23,9 +23,9 @@ const CardUser = () => {
       <Card.Body>
         <Card.Title className={styles.name}>{user.name}</Card.Title>
         <Card.Footer className={styles.likes}>
-        <FaRegThumbsDown size={20} className={styles.thumbIcon} color="red" />
-        <FaRegThumbsUp size={20} className={styles.thumbIcon} color="green" />
-      </Card.Footer>
+          <FaRegThumbsDown size={20} className={styles.thumbIcon} color="red" />
+          <FaRegThumbsUp size={20} className={styles.thumbIcon} color="green" />
+        </Card.Footer>
         <NavLink to="/">
           <Button
             variant="secondary"
@@ -36,7 +36,6 @@ const CardUser = () => {
           </Button>
         </NavLink>
       </Card.Body>
-   
     </Card>
   );
 };
