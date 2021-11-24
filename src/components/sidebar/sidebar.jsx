@@ -5,23 +5,36 @@ import socialAuth from '../../configAuth/auth';
 import { addUser, logIn } from '../../redux/action';
 import { facebookProvider, googleProvider } from '../../configAuth/provider';
 import { NavLink } from 'react-router-dom';
+import { getInfoUser } from '../../utils';
 
 const SideBar = () => {
   const isLogin = useSelector(({ isLogin }) => isLogin);
-  const user = useSelector(({ user }) => user);
- 
+  // const user = useSelector(({ user }) => user);
+  const { id, photo, name } = getInfoUser();
+
   const dispatch = useDispatch();
   const handleBtn = async (provider) => {
     const res = await socialAuth(provider);
     if (res) {
       dispatch(logIn(true));
-      dispatch(
-        addUser({
+      window.localStorage.setItem(
+        'user',
+        JSON.stringify({
           name: res.displayName,
           photo: res.photoURL,
           id: res.uid,
         })
       );
+      // dispatch(
+      //   addUser({
+      //     name: res.displayName,
+      //     photo: res.photoURL,
+      //     id: res.uid,
+      //   })
+      // );
+
+
+     
     }
   };
   return (
@@ -41,9 +54,9 @@ const SideBar = () => {
         <NavLink to="/user">
           <img
             className={styles.user}
-            src={user.photo}
+            src={photo}
             alt=""
-            title={user.name}
+            title={name}
           />
         </NavLink>
       )}

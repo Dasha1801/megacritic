@@ -10,7 +10,7 @@ export const initStore = {
     id: '',
   },
   posts: [],
-  review: null
+  review: null,
 };
 
 export const store = configureStore({

@@ -11,11 +11,13 @@ import { useDispatch } from 'react-redux';
 import { getReview } from '../../redux/action';
 import { getRatings } from '../../server/api/rating';
 import { sendThumbs } from '../../server/api/thumbs';
+import { getInfoUser } from '../../utils';
 
 const CardReview = ({ info }) => {
   const dispatch = useDispatch();
   const isLogin = useSelector(({ isLogin }) => isLogin);
-  const user = useSelector(({ user }) => user);
+  // const user = useSelector(({ user }) => user);
+  const user = getInfoUser();
   const { image, post, rating, title, category, tags, uid, id } = info;
   const [thumbsDown, setThumbsDown] = useState(false);
   const [thumbsUp, setThumbsUp] = useState(false);

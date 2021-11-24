@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getPosts } from '../../redux/action';
 import { getAllMyPost, sendPost } from '../../server/api/post';
+import { getInfoUser } from '../../utils';
 import styles from './cardCreateReview.module.css';
 import Category from './category/category';
 import DropZone from './dnd/dnd';
@@ -15,7 +16,8 @@ import Title from './titleReview/title';
 
 const CardCreateReview = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const { id } = useSelector(({ user }) => user);
+  // const { id } = useSelector(({ user }) => user);
+  const { id, photo, name } = getInfoUser();
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
   const [title, setTitle] = useState('');

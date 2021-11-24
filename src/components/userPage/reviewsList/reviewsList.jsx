@@ -3,7 +3,7 @@ import { Form, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../../redux/action';
 import { getAllMyPost } from '../../../server/api/post';
-import { filter, sort } from '../../../utils';
+import { filter, getInfoUser, sort } from '../../../utils';
 import ItemList from './itemList/itemList';
 import styles from './reviewsList.module.css';
 
@@ -13,7 +13,8 @@ const ReviewsList = () => {
   const [filterParams, setFilterParams] = useState('');
   const [sortParams, setSortParams] = useState('');
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const { id } = useSelector(({ user }) => user);
+  // const { id } = useSelector(({ user }) => user);
+  const { id, photo, name } = getInfoUser();
   const dispatch = useDispatch();
 
   useEffect(() => {

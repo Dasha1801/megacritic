@@ -6,15 +6,16 @@ import { FaRegThumbsUp, FaRegThumbsDown } from 'react-icons/fa';
 import styles from './cardUser.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import { getThumbs } from '../../../server/api/thumbs';
+import { getInfoUser } from '../../../utils';
 
 const CardUser = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const user = useSelector(({ user }) => user);
+  // const user = useSelector(({ user }) => user);
   const isLogin = useSelector(({ isLogin }) => isLogin);
   const dispatch = useDispatch();
   const [up, setUp] = useState('');
   const [down, setDown] = useState('');
-
+  const { id, photo, name } = getInfoUser();
   const logOut = () => {
     dispatch(logIn(!isLogin));
     dispatch(addUser({ name: '', photo: '', id: '' }));
@@ -23,7 +24,8 @@ const CardUser = () => {
 
   const getMyThumbs = useCallback(async () => {
     const thumbs = await getThumbs();
-    const myThumbs = thumbs.filter((el) => user.id === el.reviewUid);
+    // const myThumbs = thumbs.filter((el) => user.id === el.reviewUid);
+    const myThumbs = thumbs.filter((el) => id === el.reviewUid);
     const thumbsUp = myThumbs.reduce((acc, el) => {
       acc += el.thumbsUp;
       return acc;
@@ -34,7 +36,8 @@ const CardUser = () => {
     }, 0);
     setUp(thumbsUp);
     setDown(thumbsDown);
-  }, [user.id]);
+  // }, [user.id]);
+  }, [id]);
 
   useEffect(() => {
     getMyThumbs();
@@ -42,9 +45,11 @@ const CardUser = () => {
 
   return (
     <Card className={styles.card}>
-      <Card.Img variant="top" src={user.photo} className={styles.photo} />
+      {/* <Card.Img variant="top" src={user.photo} className={styles.photo} /> */}
+      <Card.Img variant="top" src={photo} className={styles.photo} />
       <Card.Body>
-        <Card.Title className={styles.name}>{user.name}</Card.Title>
+        {/* <Card.Title className={styles.name}>{user.name}</Card.Title> */}
+        <Card.Title className={styles.name}>{name}</Card.Title>
         <Card.Footer className={styles.likes}>
           <div className={styles.thumbs}>
             <FaRegThumbsDown

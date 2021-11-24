@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { sendRating } from '../../../server/api/rating';
+import { getInfoUser } from '../../../utils';
 import styles from './starRating.module.css';
 
 const StarRating = ({ reviewId }) => {
-  const { id } = useSelector(({ user }) => user);
-
+  // const { id } = useSelector(({ user }) => user);
+  const { id, photo, name } = getInfoUser();
   const [newRating, setNewRating] = useState(null);
   const [hover, setHover] = useState(null);
   const stars = [...Array(10)];
