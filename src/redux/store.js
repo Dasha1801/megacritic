@@ -7,7 +7,7 @@ export const initStore = {
   user: {
     name: '',
     photo: '',
-    email: '',
+    id: '',
   },
   posts: [],
   review: null

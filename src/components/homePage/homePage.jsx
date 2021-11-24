@@ -10,13 +10,13 @@ const HomePage = () => {
   useEffect(() => {
     getAllPost().then((res) => {
       setPosts(res);
-      setTags(new Set(res.map(el => [...el.tags]).flat()));
+      setTags(new Set(res.map((el) => [...el.tags]).flat()));
     });
   }, []);
 
   return (
     <>
-      <WordCloud tags={tags}/>
+      <WordCloud tags={tags} />
       <BasePage posts={posts} />
     </>
   );

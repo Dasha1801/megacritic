@@ -4,12 +4,13 @@ import StarRating from './starRating/starRating';
 import { FaRegThumbsUp, FaEye, FaRegThumbsDown } from 'react-icons/fa';
 import TagsList from '../cardCreateReview/tagsList/tagsList';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getReview } from '../../redux/action';
 import { getRatings } from '../../server/api/rating';
+import { sendThumbs } from '../../server/api/thumbs';
 
 const CardReview = ({ info }) => {
   const dispatch = useDispatch();
@@ -21,20 +22,35 @@ const CardReview = ({ info }) => {
   const [ratings, setRatings] = useState([]);
 
   const handleThumbsDown = () => {
-    setThumbsDown(true);
+    setThumbsDown(!thumbsDown);
     setThumbsUp(false);
+
+    sendThumbs({
+      thumbsUp: 0,
+      thumbsDown: 1,
+      uid: user.id,
+      reviewId: id,
+      reviewUid:uid
+    });
   };
 
   const handleThumbsUp = () => {
-    setThumbsUp(true);
+    setThumbsUp(!thumbsUp);
     setThumbsDown(false);
+    sendThumbs({
+      thumbsUp: 1,
+      thumbsDown: 0,
+      uid: user.id,
+      reviewId: id,
+      reviewUid:uid
+    });
   };
 
-  const getAllRatings = async () => {
+  const getAllRatings = useCallback(async () => {
     const allRatings = await getRatings();
     const ratings = allRatings.filter((el) => el.reviewId === id);
     setRatings(ratings);
-  };
+  }, [id]);
 
   const getMediumRating = () => {
     const countRating = ratings.reduce((acc, el) => {
@@ -47,7 +63,7 @@ const CardReview = ({ info }) => {
 
   useEffect(() => {
     getAllRatings();
-  }, []);
+  }, [getAllRatings]);
 
   return (
     <Card className={styles.card}>

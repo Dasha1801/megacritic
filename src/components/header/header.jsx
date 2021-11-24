@@ -10,12 +10,16 @@ import { NavLink } from 'react-router-dom';
 import styles from './header.module.css';
 import Lang from './lang/lang';
 import { useSelector } from 'react-redux';
+import { getResult } from '../../server/api/search';
+import { useState } from 'react';
 
 const Header = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
+  const [word, setWord] = useState('');
 
   const handleButton = () => {
- 
+    getResult({ term: word });
+    setWord('');
   };
   return (
     <Navbar bg="light" expand="lg" fix="top" className={styles.header}>
@@ -63,6 +67,8 @@ const Header = () => {
               type="search"
               placeholder={langEn ? 'Search' : 'Поиск'}
               className="me-2"
+              value={word}
+              onChange={(e) => setWord(e.target.value)}
             />
             <Button variant="primary" onClick={handleButton}>
               {langEn ? 'Search' : 'Поиск'}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { sendRating } from '../../../server/api/rating';

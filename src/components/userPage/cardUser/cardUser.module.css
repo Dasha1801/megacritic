@@ -25,6 +25,10 @@
   width: 100%;
 }
 
+.thumbs {
+  display: flex;
+}
+
 @media (max-width: 735px) {
   .name,
   .logOut {
@@ -47,5 +51,8 @@
   }
   .card {
     width: 10rem;
+  }
+  .thumbs {
+    flex-direction: column;
   }
 }
