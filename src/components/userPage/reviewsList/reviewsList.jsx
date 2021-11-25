@@ -12,10 +12,16 @@ const ReviewsList = () => {
   const [myPosts, setMyPosts] = useState([]);
   const [filterParams, setFilterParams] = useState('');
   const [sortParams, setSortParams] = useState('');
+  const [id, setId] = useState('');
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  // const { id } = useSelector(({ user }) => user);
-  const { id, photo, name } = getInfoUser();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const { id } = getInfoUser();
+    if (id) {
+      setId(id);
+    }
+  }, []);
 
   useEffect(() => {
     getAllMyPost(id).then((res) => {

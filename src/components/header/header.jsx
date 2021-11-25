@@ -1,41 +1,39 @@
+import { useState } from 'react';
 import {
+  Button,
   Container,
   Form,
   FormControl,
   Nav,
   Navbar,
-  Button,
-  Modal,
-  ListGroup,
 } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { logIn } from '../../redux/action';
+import { getResult } from '../../server/api/search';
+import { getInfoUser } from '../../utils';
+import SearchRes from '../searchRes/searchRes';
 import styles from './header.module.css';
 import Lang from './lang/lang';
-import { useSelector } from 'react-redux';
-import { getResult } from '../../server/api/search';
-import { useState } from 'react';
-import { getReview } from '../../redux/action';
-import { useDispatch } from 'react-redux';
 
 const Header = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
+  const isLogin = useSelector(({ isLogin }) => isLogin);
   const dispatch = useDispatch();
   const [word, setWord] = useState('');
   const [searchRes, setSearchRes] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
 
-  const popupClose = () => setShowPopup(false);
+  const user = getInfoUser();
+  if (user) {
+    dispatch(logIn(true));
+  }
 
   const handleButton = async () => {
     const res = await getResult({ term: word });
     setSearchRes(res);
     setWord('');
     setShowPopup(true);
-  };
-
-  const showReview = (el) => {
-    dispatch(getReview(el));
-    popupClose();
   };
 
   return (
@@ -48,12 +46,7 @@ const Header = () => {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <NavLink
-              exact
-              to="/"
-              className={styles.link}
-              activeClassName="active"
-            >
+            <NavLink to="/" className={styles.link} activeClassName="active">
               {langEn ? 'home' : 'главная'}
             </NavLink>
             <NavLink
@@ -77,6 +70,15 @@ const Header = () => {
             >
               {langEn ? 'games' : 'игры'}
             </NavLink>
+            {isLogin ? (
+              <NavLink
+                to="/user"
+                className={styles.link}
+                activeClassName="active"
+              >
+                {langEn ? 'my page' : 'моя страница'}
+              </NavLink>
+            ) : null}
           </Nav>
           <Lang />
           <Form className="d-flex">
@@ -93,27 +95,11 @@ const Header = () => {
           </Form>
         </Navbar.Collapse>
       </Container>
-      <Modal show={showPopup} onHide={popupClose}>
-        <Modal.Body>
-          {searchRes.length ? (
-            <ListGroup>
-              {searchRes.map((el) => {
-                return (
-                  <NavLink exact to="/review">
-                    <ListGroup.Item onClick={()=>showReview(el)}>
-                      {el.title}
-                    </ListGroup.Item>
-                  </NavLink>
-                );
-              })}
-            </ListGroup>
-          ) : langEn ? (
-            'No results were found for your request.'
-          ) : (
-            'По вашему запросу результатов не найдено.'
-          )}
-        </Modal.Body>
-      </Modal>
+      <SearchRes
+        searchRes={searchRes}
+        setShowPopup={setShowPopup}
+        showPopup={showPopup}
+      />
     </Navbar>
   );
 };

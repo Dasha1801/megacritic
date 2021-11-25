@@ -9,7 +9,7 @@ const UserPage = () => {
     <>
       <div className={styles.userPage}>
         <CardUser />
-        <CardCreateReview/>
+        <CardCreateReview />
       </div>
       <ReviewsList />
     </>

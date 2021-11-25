@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -16,8 +16,7 @@ import Title from './titleReview/title';
 
 const CardCreateReview = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  // const { id } = useSelector(({ user }) => user);
-  const { id, photo, name } = getInfoUser();
+  const [id, setId] = useState('');
   const dispatch = useDispatch();
   const [image, setImage] = useState([]);
   const [title, setTitle] = useState('');
@@ -26,6 +25,13 @@ const CardCreateReview = () => {
   const [tags, setTags] = useState([]);
   const [rating, setRating] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const { id } = getInfoUser();
+    if (id) {
+      setId(id);
+    }
+  }, []);
 
   const updatePosts = async (newPost) => {
     await sendPost(newPost);

@@ -8,6 +8,7 @@ import CardCreateComment from './cardCreateComment/cardCreateComment';
 
 const ReviewPage = () => {
   const review = useSelector(({ review }) => review);
+  const isLogin = useSelector(({ isLogin }) => isLogin);
   const [comments, setComments] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
 
@@ -29,10 +30,15 @@ const ReviewPage = () => {
       <SideBar />
       <div>
         <CardReview info={review} />
-        <CardCreateComment setIsUpdate={setIsUpdate} />
-        {comments.map((item) => {
-          return <CardComment comment={item} key={item.id} />;
-        })}
+
+        {isLogin ? (
+          <>
+            <CardCreateComment setIsUpdate={setIsUpdate} />
+            {comments.map((item) => {
+              return <CardComment comment={item} key={item.id} />;
+            })}
+          </>
+        ) : null}
       </div>
     </>
   );

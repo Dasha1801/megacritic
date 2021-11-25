@@ -16,35 +16,45 @@ import { getInfoUser } from '../../utils';
 const CardReview = ({ info }) => {
   const dispatch = useDispatch();
   const isLogin = useSelector(({ isLogin }) => isLogin);
-  // const user = useSelector(({ user }) => user);
-  const user = getInfoUser();
   const { image, post, rating, title, category, tags, uid, id } = info;
   const [thumbsDown, setThumbsDown] = useState(false);
   const [thumbsUp, setThumbsUp] = useState(false);
   const [ratings, setRatings] = useState([]);
+  const [userId, setUserId] = useState('');
 
   const handleThumbsDown = () => {
     setThumbsDown(!thumbsDown);
     setThumbsUp(false);
 
+    const user = getInfoUser();
+    if (user.id) {
+      setUserId(user.id);
+    }
+
     sendThumbs({
       thumbsUp: 0,
       thumbsDown: 1,
-      uid: user.id,
+      uid: userId,
       reviewId: id,
-      reviewUid:uid
+      reviewUid: uid,
     });
   };
 
   const handleThumbsUp = () => {
     setThumbsUp(!thumbsUp);
     setThumbsDown(false);
+
+    const user = getInfoUser();
+    if (user.id) {
+      setUserId(user.id);
+    }
+
     sendThumbs({
       thumbsUp: 1,
       thumbsDown: 0,
-      uid: user.id,
+      uid: userId,
       reviewId: id,
-      reviewUid:uid
+      reviewUid: uid,
     });
   };
 
@@ -71,7 +81,7 @@ const CardReview = ({ info }) => {
     <Card className={styles.card}>
       <Card.Header className={styles.headerCard}>
         <h5>{category}</h5>
-        {isLogin && user.id !== uid && <StarRating reviewId={id} />}
+        {isLogin && <StarRating reviewId={id} />}
         <h5>{getMediumRating()}/10</h5>
       </Card.Header>
       <Card.Body>
@@ -104,7 +114,7 @@ const CardReview = ({ info }) => {
           : null}
         <TagsList tags={tags} />
       </Card.Body>
-      {isLogin && user.id !== uid && (
+      {isLogin && (
         <Card.Footer className={styles.likes}>
           <FaRegThumbsDown
             size={30}
