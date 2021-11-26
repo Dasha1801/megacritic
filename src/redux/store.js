@@ -4,6 +4,7 @@ import { reducer } from './reducer';
 export const initStore = {
   isLangEn: true,
   isLogin: false,
+  isAdmin: false,
   posts: [],
   review: null,
 };

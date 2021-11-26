@@ -53,3 +53,4 @@ export const deletePost = (res) =>
     .catch(function (error) {
       console.log(error);
     });
+

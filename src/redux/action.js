@@ -12,6 +12,13 @@ export const logIn = (result) => {
   };
 };
 
+export const validationAdmin = (result) => {
+  return {
+    type: 'PASS_VALID',
+    payload: result,
+  };
+};
+
 export const getPosts = (result) => {
   return {
     type: 'GET_POSTS',

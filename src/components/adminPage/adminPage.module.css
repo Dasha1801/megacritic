@@ -1,0 +1,21 @@
+.userCards {
+  margin-top: 1%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 320px;
+  margin-bottom: 1%;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.icon {
+  cursor: pointer;
+}

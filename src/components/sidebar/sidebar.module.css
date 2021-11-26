@@ -2,14 +2,14 @@
   position: fixed;
   left: 2px;
   top: 250px;
-  height: 120px;
+  height: 143px;
   justify-content: space-evenly;
   z-index: 20;
+  align-items: center;
 }
 
 .fb,
-.google,
-.user {
+.google {
   background-size: 40px 40px;
   background-position: center;
   background-repeat: no-repeat;
@@ -23,11 +23,18 @@
 }
 .fb {
   background-size: 42px 42px;
-  /* background-image: url('https://cdn.icon-icons.com/icons2/2429/PNG/128/facebook_logo_icon_147291.png'); */
   background-image: url('https://res.cloudinary.com/megacritic/image/upload/v1637177184/facebook_logo_icon_147291_uz4eoj.png');
 }
 
 .google {
-  /* background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/2048px-Google_Chrome_icon_%28September_2014%29.svg.png'); */
   background-image: url('https://res.cloudinary.com/megacritic/image/upload/v1637177188/Google_Chrome_icon__September_2014_.svg_iks9gz.webp');
+}
+
+.iconAdmin {
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+  padding: 22%;
+  background-color: gainsboro;
+  cursor: pointer;
 }

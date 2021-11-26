@@ -5,7 +5,7 @@ const BasePage = ({ posts }) => {
   return (
     <div>
       <SideBar />
-      {posts.map((info) => {
+      {posts.slice(0, 5).map((info) => {
         return <CardReview info={info} key={info.id} />;
       })}
     </div>
