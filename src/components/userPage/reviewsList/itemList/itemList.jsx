@@ -1,23 +1,21 @@
 import { useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { FaBan, FaEye, FaPencilAlt } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { getPosts } from '../../../../redux/action';
 import { deletePost } from '../../../../server/api/post';
-import CardReview from '../../../../shared/cardReview/cardReview';
 import UpdateItem from '../updateItem/updateItem';
 import styles from './itemList.module.css';
-import ReactMarkdown from 'react-markdown';
 
 const ItemList = ({ review }) => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
   const posts = useSelector(({ posts }) => posts);
   const dispatch = useDispatch();
   const { category, title, post } = review;
-  const [popupReview, setPopupReview] = useState(false);
   const [popupUpdate, setPopupUpdate] = useState(false);
   const [popupDelete, setPopupDelete] = useState(false);
-  const reviewClose = () => setPopupReview(false);
   const updateClose = () => setPopupUpdate(false);
   const deleteClose = () => setPopupDelete(false);
 
@@ -27,34 +25,35 @@ const ItemList = ({ review }) => {
     dispatch(getPosts(posts.filter((el) => el.id !== review.id)));
   };
 
+  const showReview = () => {
+    window.localStorage.setItem('review', JSON.stringify(review));
+  };
+
   return (
     <tr>
       <td>{category}</td>
       <td>{title.slice(0, 22)}</td>
       <td className={styles.post}>
-      <ReactMarkdown children={post.slice(0, 55)} />
+        <ReactMarkdown children={post.slice(0, 55)} />
         <span className={styles.icons}>
           <FaBan
             color="#d12c1f"
             className={styles.icon}
             onClick={() => setPopupDelete(true)}
           />
-          <FaEye
-            color="#0d6efd"
-            className={styles.icon}
-            onClick={() => setPopupReview(true)}
-          />
+          <NavLink exact to="/review">
+            <FaEye
+              color="#0d6efd"
+              className={styles.iconEye}
+              onClick={showReview}
+            />
+          </NavLink>
           <FaPencilAlt
             className={styles.icon}
             onClick={() => setPopupUpdate(true)}
           />
         </span>
       </td>
-      <Modal show={popupReview} onHide={reviewClose}>
-        <Modal.Body>
-          <CardReview info={review} />
-        </Modal.Body>
-      </Modal>
       <Modal show={popupUpdate} onHide={updateClose}>
         <Modal.Body>
           <UpdateItem info={review} setPopupUpdate={setPopupUpdate} />

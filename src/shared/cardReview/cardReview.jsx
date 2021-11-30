@@ -1,36 +1,50 @@
-import styles from './cardReview.module.css';
-import { Card } from 'react-bootstrap';
-import StarRating from './starRating/starRating';
-import { FaRegThumbsUp, FaEye, FaRegThumbsDown } from 'react-icons/fa';
-import TagsList from '../cardCreateReview/tagsList/tagsList';
-import { useSelector } from 'react-redux';
-import { useEffect, useState, useCallback } from 'react';
 import MDEditor from '@uiw/react-md-editor';
+import { useCallback, useEffect, useState } from 'react';
+import { Card, Modal } from 'react-bootstrap';
+import { FaEye, FaRegThumbsDown, FaRegThumbsUp } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { getReview } from '../../redux/action';
 import { getRatings } from '../../server/api/rating';
 import { sendThumbs } from '../../server/api/thumbs';
 import { getInfoUser } from '../../utils';
+import TagsList from '../cardCreateReview/tagsList/tagsList';
+import styles from './cardReview.module.css';
+import StarRating from './starRating/starRating';
 
 const CardReview = ({ info }) => {
-  const dispatch = useDispatch();
   const isLogin = useSelector(({ isLogin }) => isLogin);
   const { image, post, rating, title, category, tags, uid, id } = info;
   const [thumbsDown, setThumbsDown] = useState(false);
   const [thumbsUp, setThumbsUp] = useState(false);
   const [ratings, setRatings] = useState([]);
   const [userId, setUserId] = useState('');
+  const [showImg, setShowImg] = useState(false);
+  const [photo, setPhoto] = useState('');
+
+  const handleClose = () => {
+    setShowImg(false);
+    setPhoto('');
+  };
+
+  const showPhoto = (src) => {
+    setPhoto(src);
+    setShowImg(true);
+  };
+
+  useEffect(() => {
+    const user = getInfoUser();
+    if (user) {
+      setUserId(user.id);
+    }
+  }, [isLogin]);
+
+  const showReview = () => {
+    window.localStorage.setItem('review', JSON.stringify(info));
+  };
 
   const handleThumbsDown = () => {
     setThumbsDown(!thumbsDown);
     setThumbsUp(false);
-
-    const user = getInfoUser();
-    if (user.id) {
-      setUserId(user.id);
-    }
-
     sendThumbs({
       thumbsUp: 0,
       thumbsDown: 1,
@@ -43,12 +57,6 @@ const CardReview = ({ info }) => {
   const handleThumbsUp = () => {
     setThumbsUp(!thumbsUp);
     setThumbsDown(false);
-
-    const user = getInfoUser();
-    if (user.id) {
-      setUserId(user.id);
-    }
-
     sendThumbs({
       thumbsUp: 1,
       thumbsDown: 0,
@@ -78,59 +86,67 @@ const CardReview = ({ info }) => {
   }, [getAllRatings]);
 
   return (
-    <Card className={styles.card}>
-      <Card.Header className={styles.headerCard}>
-        <h5>{category}</h5>
-        {isLogin && <StarRating reviewId={id} />}
-        <h5>{getMediumRating()}/10</h5>
-      </Card.Header>
-      <Card.Body>
-        <Card.Title>
-          {title}
-          <NavLink exact to="/review">
-            {isLogin && (
-              <FaEye
-                color="#0d6efd"
-                className={styles.iconEye}
-                onClick={() => dispatch(getReview(info))}
-              />
-            )}
-          </NavLink>
-        </Card.Title>
-        <Card.Text>
-          <MDEditor.Markdown source={post} />
-        </Card.Text>
-        {image.length
-          ? image.map((el, index) => {
-              return (
-                <Card.Img
-                  variant="top"
-                  src={el}
-                  className={styles.img}
-                  key={index}
+    <>
+      <Card className={styles.card}>
+        <Card.Header className={styles.headerCard}>
+          <h5>{category}</h5>
+          {isLogin && userId !== uid && <StarRating reviewId={id} />}
+          <h5>{getMediumRating()}/10</h5>
+        </Card.Header>
+        <Card.Body>
+          <Card.Title>
+            {title}
+            <NavLink exact to="/review">
+              {isLogin && (
+                <FaEye
+                  color="#0d6efd"
+                  className={styles.iconEye}
+                  onClick={showReview}
                 />
-              );
-            })
-          : null}
-        <TagsList tags={tags} />
-      </Card.Body>
-      {isLogin && (
-        <Card.Footer className={styles.likes}>
-          <FaRegThumbsDown
-            size={30}
-            className={styles.thumbIcon}
-            color={thumbsDown ? 'red' : 'gray'}
-            onClick={handleThumbsDown}
-          />
-          <FaRegThumbsUp
-            size={30}
-            className={styles.thumbIcon}
-            color={thumbsUp ? 'green' : 'gray'}
-            onClick={handleThumbsUp}
-          />
-        </Card.Footer>
-      )}
-    </Card>
+              )}
+            </NavLink>
+          </Card.Title>
+          <Card.Text>
+            <MDEditor.Markdown source={post} />
+          </Card.Text>
+          {image.length
+            ? image.map((el, index) => {
+                return (
+                  <Card.Img
+                    variant="top"
+                    src={el}
+                    className={styles.img}
+                    key={index}
+                    onClick={() => showPhoto(el)}
+                  />
+                );
+              })
+            : null}
+          <TagsList tags={tags} />
+        </Card.Body>
+        {isLogin && userId !== uid && (
+          <Card.Footer className={styles.likes}>
+            <FaRegThumbsDown
+              size={30}
+              className={styles.thumbIcon}
+              color={thumbsDown ? 'red' : 'gray'}
+              onClick={handleThumbsDown}
+            />
+            <FaRegThumbsUp
+              size={30}
+              className={styles.thumbIcon}
+              color={thumbsUp ? 'green' : 'gray'}
+              onClick={handleThumbsUp}
+            />
+          </Card.Footer>
+        )}
+      </Card>
+      <Modal show={showImg} onHide={handleClose}>
+        <Modal.Body>
+          <Card.Img src={photo} />
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
 export default CardReview;

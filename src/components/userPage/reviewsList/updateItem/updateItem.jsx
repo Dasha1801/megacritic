@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { updatePost } from '../../../../server/api/post';
-import styles from '../../../../shared/cardCreateReview/cardCreateReview.module.css';
+import styles from './updateItem.module.css';
 import Category from '../../../../shared/cardCreateReview/category/category';
 import DropZone from '../../../../shared/cardCreateReview/dnd/dnd';
 import Rating from '../../../../shared/cardCreateReview/rating/rating';
@@ -63,6 +63,7 @@ const UpdateItem = ({ info, setPopupUpdate }) => {
           <Category setCategory={setCategory} value={category} />
           <TagInput setTags={setTags} />
         </Form.Group>
+
         <Form.Group
           className={styles.wrapperTitleRating}
           controlId="exampleForm.ControlInput1"
@@ -70,7 +71,6 @@ const UpdateItem = ({ info, setPopupUpdate }) => {
           <Title setTitle={setTitle} value={title} />
           <Rating setRating={setRating} value={rating} />
         </Form.Group>
-
         <Review setPost={setPost} value={post} />
         {error && <span className={styles.error}>{error}</span>}
         {tags && <TagsList tags={tags} />}
@@ -78,7 +78,7 @@ const UpdateItem = ({ info, setPopupUpdate }) => {
           <DropZone setImage={setImage} value={image} />
           <Button
             variant="primary"
-            className={styles.submit}
+            className={styles.update}
             onClick={sendReview}
           >
             {langEn ? 'Update' : 'Обновить'}

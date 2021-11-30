@@ -1,16 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { FaBan, FaEye } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { getPosts } from '../../redux/action';
 import { deletePost, getAllPost } from '../../server/api/post';
 import styles from './adminPage.module.css';
 
 const AdminPage = () => {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const getUser = (el) => {
@@ -29,15 +26,18 @@ const AdminPage = () => {
     postsUser.forEach((el) => {
       deletePost(el);
     });
+    setPosts(posts.filter((item) => item.uid !== el));
   };
 
+  const getAllUsers = useCallback(async () => {
+    const allPosts = await getAllPost();
+    setPosts(allPosts);
+    setUsers(Array.from(new Set(allPosts.map((el) => el.uid))));
+  }, []);
+
   useEffect(() => {
-    getAllPost().then((res) => {
-      dispatch(getPosts(res));
-      setPosts(res);
-    });
-    setUsers(Array.from(new Set(posts.map((el) => el.uid))));
-  }, [dispatch, posts.length]);
+    getAllUsers();
+  }, [posts.length, getAllUsers]);
 
   return (
     <div className={styles.userCards}>

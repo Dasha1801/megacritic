@@ -17,3 +17,11 @@ export const getInfoUser = () => {
     return userInfo;
   }
 };
+
+export const getInfoReview = () => {
+  const data = window.localStorage.getItem('review');
+  if (data) {
+    const reviewInfo = JSON.parse(data);
+    return reviewInfo;
+  }
+};

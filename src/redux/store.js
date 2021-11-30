@@ -6,7 +6,14 @@ export const initStore = {
   isLogin: false,
   isAdmin: false,
   posts: [],
-  review: null,
+  review: {
+    category: '',
+    id: '',
+    title: '',
+    post: '',
+    tags: [],
+    image: [],
+  },
 };
 
 export const store = configureStore({

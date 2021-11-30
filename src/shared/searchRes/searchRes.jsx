@@ -9,6 +9,7 @@ const SearchRes = ({ searchRes, setShowPopup, showPopup }) => {
   const popupClose = () => setShowPopup(false);
 
   const showReview = (el) => {
+    window.localStorage.setItem('review', JSON.stringify(el));
     dispatch(getReview(el));
     popupClose();
   };

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../redux/action';
 import { getAllMyPost, sendPost } from '../../server/api/post';
 import { getInfoUser } from '../../utils';

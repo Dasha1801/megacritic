@@ -11,10 +11,6 @@ export const options = {
   transitionDuration: 1000,
 };
 
-export const callbacks = {
-  getWordTooltip: (word) => `${word.text}`,
-};
-
-export function randomNumber(){
-  return  Math.round(Math.random() * 25 + 26);
+export function randomNumber() {
+  return Math.round(Math.random() * 25 + 26);
 }

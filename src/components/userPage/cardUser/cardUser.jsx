@@ -10,7 +10,6 @@ import styles from './cardUser.module.css';
 
 const CardUser = () => {
   const langEn = useSelector(({ isLangEn }) => isLangEn);
-  const isLogin = useSelector(({ isLogin }) => isLogin);
   const dispatch = useDispatch();
   const [up, setUp] = useState('');
   const [down, setDown] = useState('');
@@ -19,9 +18,10 @@ const CardUser = () => {
   const [id, setId] = useState('');
 
   const logOut = () => {
-    dispatch(logIn(!isLogin));
+    dispatch(logIn(false));
     dispatch(getPosts([]));
     window.localStorage.removeItem('user');
+    window.localStorage.removeItem('review');
   };
 
   const getMyThumbs = useCallback(async () => {

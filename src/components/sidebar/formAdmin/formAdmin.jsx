@@ -27,6 +27,12 @@ const FormAdmin = ({ showPopup, setShowPopup }) => {
     if (name === 'admin' && password === '1234') {
       dispatch(validationAdmin(true));
       navigate('/admin');
+      window.localStorage.setItem(
+        'user',
+        JSON.stringify({
+          isAdmin: true,
+        })
+      );
       popupClose();
     } else {
       langEn

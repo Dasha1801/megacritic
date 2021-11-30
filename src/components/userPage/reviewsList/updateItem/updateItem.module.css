@@ -1,0 +1,48 @@
+.cardReview {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  padding: 1%;
+  margin-top: 1%;
+}
+
+.headerReview,
+.wrapperTitleRating {
+  display: flex;
+  margin-bottom: 1%;
+  justify-content: space-between;
+}
+
+.dnd {
+  display: flex;
+  width: 100%;
+  padding: 1% 0 0;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+@media (max-width: 1050px) {
+  .submit {
+    width: 17%;
+  }
+}
+
+@media (max-width: 600px) {
+  .headerReview {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 440px) {
+  .dnd {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+

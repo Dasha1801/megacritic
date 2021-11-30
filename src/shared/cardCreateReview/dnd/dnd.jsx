@@ -43,15 +43,13 @@ const DropZone = ({ setImage, value }) => {
 
   return (
     <div className={styles.wrapperDnd}>
-      {uploadedFiles.length < 3 && (
-        <div
-          {...getRootProps()}
-          className={`${styles.dropZone} ${isDragActive && styles.active}`}
-        >
-          <input {...getInputProps()} />
-          {langEn ? 'Upload' : 'Загрузить'}
-        </div>
-      )}
+      <div
+        {...getRootProps()}
+        className={`${styles.dropZone} ${isDragActive && styles.active}`}
+      >
+        <input {...getInputProps()} />
+        {langEn ? 'Upload' : 'Загрузить'}
+      </div>
       <ul className={styles.imgList}>
         {uploadedFiles.map((file) => {
           return (

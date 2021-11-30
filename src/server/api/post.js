@@ -11,7 +11,7 @@ export const sendPost = (res) =>
     });
 
 export const getAllPost = () =>
-  Axios.get(`${baseUrl}/published`).then(function (res) {
+  Axios.get(`${baseUrl}`).then(function (res) {
     return res.data;
   });
 
@@ -31,7 +31,7 @@ export const getAllMovies = () =>
   });
 
 export const getAllMyPost = (id) =>
-  Axios.get(`${baseUrl}/published`).then(function (res) {
+  Axios.get(`${baseUrl}`).then(function (res) {
     const data = res.data;
     return data.filter((el) => el.uid === id);
   });
@@ -53,4 +53,3 @@ export const deletePost = (res) =>
     .catch(function (error) {
       console.log(error);
     });
-

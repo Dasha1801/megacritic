@@ -12,8 +12,9 @@ import { NavLink } from 'react-router-dom';
 import { logIn, validationAdmin } from '../../redux/action';
 import { getResult } from '../../server/api/search';
 import { getInfoUser } from '../../utils';
-import SearchRes from '../searchRes/searchRes';
+import SearchRes from '../../shared/searchRes/searchRes';
 import styles from './header.module.css';
+import { headerInfo } from './headerInfo';
 import Lang from './lang/lang';
 
 const Header = () => {
@@ -27,7 +28,11 @@ const Header = () => {
 
   const user = getInfoUser();
   if (user) {
-    dispatch(logIn(true));
+    if (user.name) {
+      dispatch(logIn(true));
+    } else {
+      dispatch(validationAdmin(true));
+    }
   }
 
   const handleButton = async () => {
@@ -35,6 +40,13 @@ const Header = () => {
     setSearchRes(res);
     setWord('');
     setShowPopup(true);
+  };
+
+  const logOutAdmin = () => {
+    dispatch(validationAdmin(false));
+    dispatch(logIn(false));
+    window.localStorage.removeItem('user');
+    window.localStorage.removeItem('review');
   };
 
   return (
@@ -48,30 +60,6 @@ const Header = () => {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <NavLink to="/" className={styles.link} activeClassName="active">
-                {langEn ? 'home' : 'главная'}
-              </NavLink>
-              <NavLink
-                to="/movies"
-                className={styles.link}
-                activeClassName="active"
-              >
-                {langEn ? 'movies' : 'кино'}
-              </NavLink>
-              <NavLink
-                to="/books"
-                className={styles.link}
-                activeClassName="active"
-              >
-                {langEn ? 'books' : 'книги'}
-              </NavLink>
-              <NavLink
-                to="/games"
-                className={styles.link}
-                activeClassName="active"
-              >
-                {langEn ? 'games' : 'игры'}
-              </NavLink>
               {isLogin ? (
                 <NavLink
                   to="/user"
@@ -81,15 +69,18 @@ const Header = () => {
                   {langEn ? 'my page' : 'моя страница'}
                 </NavLink>
               ) : null}
-              {isAdmin ? (
-                <NavLink
-                  to="/admin"
-                  className={styles.link}
-                  activeClassName="active"
-                >
-                  {langEn ? 'my page' : 'моя страница'}
-                </NavLink>
-              ) : null}
+              {headerInfo.map((el) => {
+                return (
+                  <NavLink
+                    kye={el.en}
+                    to={el.path}
+                    className={styles.link}
+                    activeClassName="active"
+                  >
+                    {langEn ? `${el.en}` : `${el.ru}`}
+                  </NavLink>
+                );
+              })}
             </Nav>
             <Lang />
             <Form className="d-flex">
@@ -115,7 +106,7 @@ const Header = () => {
             to="/"
             className={styles.link}
             activeClassName="active"
-            onClick={() => dispatch(validationAdmin(false))}
+            onClick={logOutAdmin}
           >
             {langEn ? 'LogOut' : 'Выйти'}
           </NavLink>
