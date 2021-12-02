@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getReview } from '../../redux/action';
 import { getComments } from '../../server/api/comment';
@@ -15,6 +15,11 @@ const ReviewPage = () => {
   const [comments, setComments] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
 
+  const getAllComments = useCallback(async () => {
+    const allComments = await getComments({ reviewId: review.id });
+    setComments(allComments);
+  }, [review.id]);
+
   useEffect(() => {
     const reviewInfo = getInfoReview();
     if (reviewInfo) {
@@ -23,25 +28,21 @@ const ReviewPage = () => {
   }, [review.title, dispatch]);
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await getComments();
-      setComments(response.filter((el) => el.reviewId === review.id));
-    }
+    getAllComments();
+  }, [getAllComments]);
 
+  useEffect(() => {
     if (isUpdate) {
-      fetchData();
+      getAllComments();
       setIsUpdate(false);
-      return;
     }
-    fetchData();
-  }, [isUpdate, review.id]);
+  }, [isUpdate, getAllComments]);
 
   return (
     <>
       <SideBar />
       <div>
         <CardReview info={review} />
-
         {isLogin ? (
           <>
             <CardCreateComment setIsUpdate={setIsUpdate} />

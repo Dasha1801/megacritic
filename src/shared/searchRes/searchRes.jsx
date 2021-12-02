@@ -21,7 +21,7 @@ const SearchRes = ({ searchRes, setShowPopup, showPopup }) => {
           <ListGroup>
             {searchRes.map((el) => {
               return (
-                <NavLink to="/review">
+                <NavLink to="/review" key={el.title}>
                   <ListGroup.Item onClick={() => showReview(el)}>
                     {el.title}
                   </ListGroup.Item>

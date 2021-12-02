@@ -25,3 +25,6 @@ export const getInfoReview = () => {
     return reviewInfo;
   }
 };
+
+
+export const setActive = ({ isActive }) =>(isActive ? " active" : "");

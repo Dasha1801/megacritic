@@ -4,7 +4,7 @@ import { FaRegThumbsDown, FaRegThumbsUp } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getPosts, logIn } from '../../../redux/action';
-import { getThumbs } from '../../../server/api/thumbs';
+import { getUserThumbs } from '../../../server/api/thumbs';
 import { getInfoUser } from '../../../utils';
 import styles from './cardUser.module.css';
 
@@ -24,17 +24,22 @@ const CardUser = () => {
     window.localStorage.removeItem('review');
   };
 
-  const getMyThumbs = useCallback(async () => {
-    const thumbs = await getThumbs();
-    const myThumbs = thumbs.filter((el) => id === el.reviewUid);
-    const thumbsUp = myThumbs.reduce((acc, el) => {
+  const getThumbsUp = (myThumbs) =>
+    myThumbs.reduce((acc, el) => {
       acc += el.thumbsUp;
       return acc;
     }, 0);
-    const thumbsDown = myThumbs.reduce((acc, el) => {
+
+  const getThumbsDown = (myThumbs) =>
+    myThumbs.reduce((acc, el) => {
       acc += el.thumbsDown;
       return acc;
     }, 0);
+
+  const getMyThumbs = useCallback(async () => {
+    const myThumbs = await getUserThumbs({ uid: id });
+    const thumbsUp = getThumbsUp(myThumbs);
+    const thumbsDown = getThumbsDown(myThumbs);
     setUp(thumbsUp);
     setDown(thumbsDown);
   }, [id]);

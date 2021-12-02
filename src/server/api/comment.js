@@ -10,7 +10,7 @@ export const sendComment = (res) =>
       console.log(error);
     });
 
-export const getComments = () =>
-  Axios.get(`${baseUrl}/comments`).then(function (res) {
+export const getComments = (res) =>
+  Axios.post(`${baseUrl}/allComments`, res).then(function (res) {
     return res.data;
   });

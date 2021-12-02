@@ -8,11 +8,10 @@ import SearchRes from '../../../shared/searchRes/searchRes';
 import { getResult } from '../../../server/api/search';
 
 const WordCloud = ({ tags }) => {
-  const tagsArr = Array.from(tags);
   const [searchRes, setSearchRes] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
 
-  const words = tagsArr.map((el) => {
+  const words = tags.map((el) => {
     return { text: el, value: randomNumber() };
   });
 

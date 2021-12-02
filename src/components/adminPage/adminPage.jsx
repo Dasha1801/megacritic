@@ -44,7 +44,7 @@ const AdminPage = () => {
       {users.length
         ? users.map((el) => {
             return (
-              <Card className={styles.card}>
+              <Card className={styles.card} key={el}>
                 <Card.Body>
                   <Card.Title>User ID:</Card.Title>
                   <Card.Text>{el}</Card.Text>

@@ -4,7 +4,7 @@ import { FaBan, FaEye, FaPencilAlt } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getPosts } from '../../../../redux/action';
+import { getPosts, getReview } from '../../../../redux/action';
 import { deletePost } from '../../../../server/api/post';
 import UpdateItem from '../updateItem/updateItem';
 import styles from './itemList.module.css';
@@ -26,6 +26,7 @@ const ItemList = ({ review }) => {
   };
 
   const showReview = () => {
+    dispatch(getReview(review));
     window.localStorage.setItem('review', JSON.stringify(review));
   };
 
@@ -41,7 +42,7 @@ const ItemList = ({ review }) => {
             className={styles.icon}
             onClick={() => setPopupDelete(true)}
           />
-          <NavLink exact to="/review">
+          <NavLink to="/review">
             <FaEye
               color="#0d6efd"
               className={styles.iconEye}

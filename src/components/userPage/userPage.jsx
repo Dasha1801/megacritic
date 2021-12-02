@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logIn, validationAdmin } from '../../redux/action';
 import CardCreateReview from '../../shared/cardCreateReview/cardCreateReview';
@@ -10,14 +11,17 @@ const UserPage = () => {
   const isLogin = useSelector(({ isLogin }) => isLogin);
   const isAdmin = useSelector(({ isAdmin }) => isAdmin);
   const dispatch = useDispatch();
-  const user = getInfoUser();
-  if (user) {
-    if (user.name) {
-      dispatch(logIn(true));
-    } else {
-      dispatch(validationAdmin(true));
+
+  useEffect(() => {
+    const user = getInfoUser();
+    if (user) {
+      if (user.name) {
+        dispatch(logIn(true));
+      } else {
+        dispatch(validationAdmin(true));
+      }
     }
-  }
+  }, [isLogin, isAdmin, dispatch]);
 
   return (
     <>

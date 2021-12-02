@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, FormControl, Button } from 'react-bootstrap';
+import { FormControl, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import styles from './tagInput.module.css';
 
@@ -20,7 +20,7 @@ const TagInput = ({ setTags }) => {
   };
 
   return (
-    <Form className={styles.formTag}>
+    <div className={styles.formTag}>
       <FormControl
         className="me-2"
         type="text"
@@ -31,7 +31,7 @@ const TagInput = ({ setTags }) => {
       <Button variant="secondary" onClick={resetTag}>
         {langEn ? 'Add' : 'Добавить'}
       </Button>
-    </Form>
+    </div>
   );
 };
 export default TagInput;

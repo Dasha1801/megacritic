@@ -10,7 +10,7 @@ export const sendThumbs = (res) =>
       console.log(error);
     });
 
-export const getThumbs = () =>
-  Axios.get(`${baseUrl}/thumbs`).then(function (res) {
+export const getUserThumbs = (res) =>
+  Axios.post(`${baseUrl}/userThumbs`, res).then(function (res) {
     return res.data;
   });

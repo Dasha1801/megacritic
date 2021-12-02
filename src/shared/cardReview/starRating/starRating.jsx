@@ -9,7 +9,7 @@ const StarRating = ({ reviewId }) => {
   const [hover, setHover] = useState(null);
   const [id, setId] = useState('');
   const stars = [...Array(10)];
-  
+
   useEffect(() => {
     const user = getInfoUser();
     if (user) {
@@ -28,7 +28,7 @@ const StarRating = ({ reviewId }) => {
       {stars.map((star, idx) => {
         const ratingValue = idx + 1;
         return (
-          <label>
+          <label key={idx}>
             <input
               type="radio"
               className={styles.starInput}
@@ -37,7 +37,6 @@ const StarRating = ({ reviewId }) => {
             />
             <FaStar
               size={20}
-              key={idx}
               className={styles.star}
               color={ratingValue <= (newRating || hover) ? 'yellow' : 'gray'}
               onMouseEnter={() => setHover(ratingValue)}

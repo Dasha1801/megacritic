@@ -17,9 +17,10 @@ const CardCreateComment = ({ setIsUpdate }) => {
   };
 
   const addComment = () => {
-    sendComment({ reviewId: id, text: comment.trim() });
-    setIsUpdate(true);
-    setComment('');
+    sendComment({ reviewId: id, text: comment.trim() }).then((res) => {
+      setIsUpdate(true);
+      setComment('');
+    });
   };
 
   const handlerBtn = () => {

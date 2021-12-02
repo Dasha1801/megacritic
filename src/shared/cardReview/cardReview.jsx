@@ -2,9 +2,11 @@ import MDEditor from '@uiw/react-md-editor';
 import { useCallback, useEffect, useState } from 'react';
 import { Card, Modal } from 'react-bootstrap';
 import { FaEye, FaRegThumbsDown, FaRegThumbsUp } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { getRatings } from '../../server/api/rating';
+import { getReview } from '../../redux/action';
+import { getRatingsReview } from '../../server/api/rating';
 import { sendThumbs } from '../../server/api/thumbs';
 import { getInfoUser } from '../../utils';
 import TagsList from '../cardCreateReview/tagsList/tagsList';
@@ -13,6 +15,7 @@ import StarRating from './starRating/starRating';
 
 const CardReview = ({ info }) => {
   const isLogin = useSelector(({ isLogin }) => isLogin);
+  const dispatch = useDispatch();
   const { image, post, rating, title, category, tags, uid, id } = info;
   const [thumbsDown, setThumbsDown] = useState(false);
   const [thumbsUp, setThumbsUp] = useState(false);
@@ -31,14 +34,8 @@ const CardReview = ({ info }) => {
     setShowImg(true);
   };
 
-  useEffect(() => {
-    const user = getInfoUser();
-    if (user) {
-      setUserId(user.id);
-    }
-  }, [isLogin]);
-
   const showReview = () => {
+    dispatch(getReview(info));
     window.localStorage.setItem('review', JSON.stringify(info));
   };
 
@@ -66,24 +63,35 @@ const CardReview = ({ info }) => {
     });
   };
 
-  const getAllRatings = useCallback(async () => {
-    const allRatings = await getRatings();
-    const ratings = allRatings.filter((el) => el.reviewId === id);
+  const getRatings = useCallback(async () => {
+    const ratings = await getRatingsReview({ id: id });
     setRatings(ratings);
   }, [id]);
 
-  const getMediumRating = () => {
-    const countRating = ratings.reduce((acc, el) => {
+  const getSumRatings = () => {
+    const sumRatings = ratings.reduce((acc, el) => {
       acc += el.rating;
       return acc;
     }, 0);
+    return sumRatings;
+  };
+
+  const getMediumRating = () => {
+    const countRating = getSumRatings();
     const mediumRating = (countRating + rating) / (ratings.length + 1);
     return Math.round(mediumRating * 10) / 10;
   };
 
   useEffect(() => {
-    getAllRatings();
-  }, [getAllRatings]);
+    const user = getInfoUser();
+    if (user) {
+      setUserId(user.id);
+    }
+  }, [isLogin]);
+
+  useEffect(() => {
+    getRatings();
+  }, [getRatings]);
 
   return (
     <>
@@ -96,7 +104,7 @@ const CardReview = ({ info }) => {
         <Card.Body>
           <Card.Title>
             {title}
-            <NavLink exact to="/review">
+            <NavLink to="/review">
               {isLogin && (
                 <FaEye
                   color="#0d6efd"
@@ -106,9 +114,7 @@ const CardReview = ({ info }) => {
               )}
             </NavLink>
           </Card.Title>
-          <Card.Text>
-            <MDEditor.Markdown source={post} />
-          </Card.Text>
+          <MDEditor.Markdown source={post} className={styles.text} />
           {image.length
             ? image.map((el, index) => {
                 return (

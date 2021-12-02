@@ -10,7 +10,7 @@ export const sendRating = (res) =>
       console.log(error);
     });
 
-export const getRatings = () =>
-  Axios.get(`${baseUrl}/ratings`).then(function (res) {
+export const getRatingsReview = (res) =>
+  Axios.post(`${baseUrl}/ratingsReview`, res).then(function (res) {
     return res.data;
   });

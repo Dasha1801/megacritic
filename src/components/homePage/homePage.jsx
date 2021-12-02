@@ -10,7 +10,8 @@ const HomePage = () => {
   useEffect(() => {
     getAllPost().then((res) => {
       setPosts(res);
-      setTags(new Set(res.map((el) => [...el.tags]).flat()));
+      const allTags = new Set(res.map((el) => el.tags).flat());
+      setTags(Array.from(allTags));
     });
   }, []);
 

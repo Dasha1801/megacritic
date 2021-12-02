@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { FaUserLock } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,10 +15,12 @@ const SideBar = () => {
   const dispatch = useDispatch();
   const [showPopup, setShowPopup] = useState(false);
 
-  const user = getInfoUser();
-  if (user) {
-    dispatch(logIn(true));
-  }
+  useEffect(() => {
+    const user = getInfoUser();
+    if (user) {
+      dispatch(logIn(true));
+    }
+  }, [isLogin, dispatch]);
 
   const handleBtn = async (provider) => {
     const res = await socialAuth(provider);
