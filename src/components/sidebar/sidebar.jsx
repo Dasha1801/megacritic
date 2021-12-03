@@ -24,7 +24,7 @@ const SideBar = () => {
 
   const handleBtn = async (provider) => {
     const res = await socialAuth(provider);
-    if (res) {
+    if (res.uid) {
       dispatch(logIn(true));
       window.localStorage.setItem(
         'user',
