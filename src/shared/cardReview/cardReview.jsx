@@ -12,6 +12,7 @@ import { getInfoUser } from '../../utils';
 import TagsList from '../cardCreateReview/tagsList/tagsList';
 import styles from './cardReview.module.css';
 import StarRating from './starRating/starRating';
+import { useLocation } from 'react-router-dom';
 
 const CardReview = ({ info }) => {
   const isLogin = useSelector(({ isLogin }) => isLogin);
@@ -23,6 +24,7 @@ const CardReview = ({ info }) => {
   const [userId, setUserId] = useState('');
   const [showImg, setShowImg] = useState(false);
   const [photo, setPhoto] = useState('');
+  const path = useLocation().pathname;
 
   const handleClose = () => {
     setShowImg(false);
@@ -105,16 +107,19 @@ const CardReview = ({ info }) => {
           <Card.Title>
             {title}
             <NavLink to="/review">
-              {isLogin && (
+              {path !== '/review' ? (
                 <FaEye
                   color="#0d6efd"
                   className={styles.iconEye}
                   onClick={showReview}
                 />
-              )}
+              ) : null}
             </NavLink>
           </Card.Title>
-          <MDEditor.Markdown source={post} className={styles.text} />
+          <MDEditor.Markdown
+            source={path !== '/review' ? `${post.slice(0, 200)}...` : post}
+            className={styles.text}
+          />
           {image.length
             ? image.map((el, index) => {
                 return (
